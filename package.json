@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/HarshCoder99/talent-IQ_1.git"
+    "url": "git+https://github.com/Spcoder99/talentiq.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
-    "url": "https://github.com/HarshCoder99/talent-IQ_1/issues"
+    "url": "https://github.com/Spcoder99/talentiq/issues"
   },
-  "homepage": "https://github.com/HarshCoder99/talent-IQ_1#readme"
+  "homepage": "https://github.com/Spcoder99/talentiq#readme"
 }
