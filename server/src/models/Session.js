@@ -17,7 +17,7 @@ const sessionSchema = new mongoose.Schema({
         required: true,
     },
 
-    participants: {
+    participant: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
         default: null,
