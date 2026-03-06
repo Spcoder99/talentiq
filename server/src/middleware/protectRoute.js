@@ -9,7 +9,7 @@ export const protectRoute = [
             const clerkId = req.auth().userId;
 
             if (!clerkId) {
-                return res.status(401).json({ msg: "Unauthorized - invalid token" });
+                return res.status(401).json({ message: "Unauthorized - invalid token" });
             }
 
             // find user in db by clerk id
@@ -18,7 +18,7 @@ export const protectRoute = [
             console.log(user, "user in protectRoute middleware");
 
             if (!user) {
-                return res.status(404).json({ msg: "Unauthorized - user not found" });
+                return res.status(404).json({ message: "Unauthorized - user not found" });
             }
 
             // attach user to request object for use in route handlers
@@ -26,7 +26,7 @@ export const protectRoute = [
             next();
         } catch (error) {
             console.error("💥Error in protectRoute middleware", error);
-            res.status(500).json({ msg: "Internal server error" });
+            res.status(500).json({ message: "Internal server error" });
         }
     }
 ]; 
