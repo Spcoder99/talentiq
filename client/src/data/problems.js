@@ -219,7 +219,9 @@ print(isPalindrome(" "))  # Expected: True`,
         category: "Array • Dynamic Programming",
         description: {
             text: "Given an integer array nums, find the subarray with the largest sum, and return its sum.",
-            notes: [],
+            notes: ["Use Kadane's algorithm to solve this problem efficiently.",
+                "Iterate through the array, keeping track of the current subarray sum and the maximum sum found so far."
+            ],
         },
         examples: [
             {
@@ -301,6 +303,7 @@ print(maxSubArray([5,4,-1,7,8]))  # Expected: 23`,
             {
                 input: "height = [1,1]",
                 output: "1",
+                explanation: "The vertical lines are represented by array [1,1]. In this case, the max area of water the container can contain is 1.",
             },
         ],
         constraints: ["n == height.length", "2 ≤ n ≤ 10⁵", "0 ≤ height[i] ≤ 10⁴"],
@@ -350,8 +353,8 @@ print(maxArea([1,1]))  # Expected: 1`,
             notes: ["Return false if every element is distinct."]
         },
         examples: [
-            { input: "nums = [1,2,3,1]", output: "true" },
-            { input: "nums = [1,2,3,4]", output: "false" }
+            { input: "nums = [1,2,3,1]", output: "true", explanation: "The value 1 appears twice in the array, so return true." },
+            { input: "nums = [1,2,3,4]", output: "false", explanation: "All elements in the array are distinct, so return false." }
         ],
         constraints: [
             "1 ≤ nums.length ≤ 10⁵",
@@ -397,14 +400,16 @@ System.out.println(containsDuplicate(new int[]{1,2,3,4}));
         category: "String • Hash Table",
         description: {
             text: "Given two strings s and t, return true if t is an anagram of s.",
-            notes: []
+            notes: ["Count frequency of characters in both strings and compare.",
+                "Use a hash map or array to store character counts."]
         },
         examples: [
             { input: 's = "anagram", t = "nagaram"', output: "true" },
-            { input: 's = "rat", t = "car"', output: "false" }
+            { input: 's = "rat", t = "car"', output: "false", explanation: '"car" is not an anagram of "rat".' }
         ],
         constraints: [
-            "1 ≤ s.length, t.length ≤ 5 * 10⁴"
+            "1 ≤ s.length, t.length ≤ 5 * 10⁴",
+            "s and t consist of lowercase English letters."
         ],
         starterCode: {
             javascript: `function isAnagram(s, t) {
@@ -445,14 +450,17 @@ System.out.println(isAnagram("rat","car"));
         category: "Array • Greedy",
         description: {
             text: "Return the maximum profit you can achieve.",
-            notes: []
+            notes: ["Track minimum price seen so far and compute profit at each step.",
+                "Update maximum profit whenever a higher profit is found."]
         },
         examples: [
-            { input: "prices = [7,1,5,3,6,4]", output: "5" },
-            { input: "prices = [7,6,4,3,1]", output: "0" }
+            { input: "prices = [7,1,5,3,6,4]", output: "5", explanation: "Buy on day 2 (price = 1) and sell on day 5 (price = 6), profit = 6-1 = 5. Not 7-1 = 6, as selling price needs to be larger than buying price." },
+            { input: "prices = [7,6,4,3,1]", output: "0", explanation: "No profit can be achieved as the price keeps decreasing." }
         ],
         constraints: [
-            "1 ≤ prices.length ≤ 10⁵"
+            "1 ≤ prices.length ≤ 10⁵",
+            "0 ≤ prices[i] ≤ 10⁴"
+
         ],
         starterCode: {
             javascript: `function maxProfit(prices) {
@@ -466,7 +474,8 @@ console.log(maxProfit([7,6,4,3,1])); // 0`,
     pass
 
 print(maxProfit([7,1,5,3,6,4]))  # Expected: 5
-print(maxProfit([7,6,4,3,1]))  # Expected: 0`,
+print(maxProfit([7,6,4,3,1]))  # Expected: 0`
+            ,
             java: `class Solution {
 public static int maxProfit(int[] prices) {
 
@@ -493,14 +502,16 @@ System.out.println(maxProfit(new int[]{7,6,4,3,1}));
         category: "Dynamic Programming",
         description: {
             text: "You are climbing a staircase. Each time you can climb either 1 or 2 steps. Return the number of distinct ways to reach the top.",
-            notes: []
+            notes: ["This is a classic dynamic programming problem.",
+                "The number of ways to reach step i is the sum of ways to reach steps i-1 and i-2."]
         },
         examples: [
-            { input: "n = 2", output: "2" },
-            { input: "n = 3", output: "3" }
+            { input: "n = 2", output: "2", explanation: "There are two ways to climb to the top: 1. 1 step + 1 step 2. 2 steps" },
+            { input: "n = 3", output: "3", explanation: "There are three ways to climb to the top: 1. 1 step + 1 step + 1 step 2. 1 step + 2 steps 3. 2 steps + 1 step" }
         ],
         constraints: [
-            "1 ≤ n ≤ 45"
+            "1 ≤ n ≤ 45",
+            "The answer is guaranteed to fit in a 32-bit integer."
         ],
         starterCode: {
             javascript: `function climbStairs(n) {
@@ -542,14 +553,16 @@ System.out.println(climbStairs(3));
         category: "Array • Math",
         description: {
             text: "Given an array nums containing n distinct numbers in the range [0, n], return the only number missing from the array.",
-            notes: []
+            notes: ["Calculate the expected sum of numbers from 0 to n and subtract the actual sum of the array elements.",
+                "This will give you the missing number."]
         },
         examples: [
-            { input: "nums = [3,0,1]", output: "2" },
-            { input: "nums = [0,1]", output: "2" }
+            { input: "nums = [3,0,1]", output: "2", explanation: "n = 3 since there are 3 numbers, so all numbers are in the range [0,3]. 2 is the missing number in the range since it does not appear in nums." },
+            { input: "nums = [0,1]", output: "2", explanation: "n = 2 since there are 2 numbers, so all numbers are in the range [0,2]. 2 is the missing number in the range since it does not appear in nums." }
         ],
         constraints: [
-            "1 ≤ nums.length ≤ 10⁴"
+            "1 ≤ nums.length ≤ 10⁴",
+            "0 ≤ nums[i] ≤ n",
         ],
         starterCode: {
             javascript: `function missingNumber(nums) {
@@ -590,14 +603,16 @@ System.out.println(missingNumber(new int[]{0,1}));
         category: "Array • Math",
         description: {
             text: "You are given a large integer represented as an integer array digits, where each digits[i] is the ith digit of the integer. Increment the large integer by one.",
-            notes: []
+            notes: ["Add 1 to the last digit and handle carry-over.",
+                "If there's a carry-over after processing all digits, prepend 1 to the array."]
         },
         examples: [
-            { input: "digits = [1,2,3]", output: "[1,2,4]" },
+            { input: "digits = [1,2,3]", output: "[1,2,4]", explanation: "The array represents the integer 123. Incrementing by one gives 123 + 1 = 124. Thus, the result should be [1,2,4]." },
             { input: "digits = [9]", output: "[1,0]" }
         ],
         constraints: [
-            "1 ≤ digits.length ≤ 100"
+            "1 ≤ digits.length ≤ 100",
+            "0 ≤ digits[i] ≤ 9",
         ],
         starterCode: {
             javascript: `function plusOne(digits) {
@@ -640,13 +655,16 @@ System.out.println(Arrays.toString(plusOne(new int[]{9})));
         category: "Array • Two Pointers",
         description: {
             text: "Move all 0's to the end of the array while maintaining the relative order of the non-zero elements.",
-            notes: []
+            notes: ["Use two pointers to traverse the array and move non-zero elements to the front.",
+                "Fill the remaining positions with zeros."]
         },
         examples: [
-            { input: "nums = [0,1,0,3,12]", output: "[1,3,12,0,0]" }
+            { input: "nums = [0,1,0,3,12]", output: "[1,3,12,0,0]" },
+            { input: "nums = [0]", output: "[0]" }
         ],
         constraints: [
-            "1 ≤ nums.length ≤ 10⁴"
+            "1 ≤ nums.length ≤ 10⁴",
+            "-2³¹ ≤ nums[i] ≤ 2³¹ - 1"
         ],
         starterCode: {
             javascript: `function moveZeroes(nums) {
@@ -691,13 +709,18 @@ System.out.println(Arrays.toString(arr));
         category: "Array • Two Pointers",
         description: {
             text: "Merge nums2 into nums1 as one sorted array.",
-            notes: []
+            notes: ["Use two pointers to traverse both arrays and merge them into nums1.",
+                "Start from the end of both arrays and fill nums1 from the end."]
         },
         examples: [
-            { input: "nums1=[1,2,3], nums2=[2,5,6]", output: "[1,2,2,3,5,6]" }
+            { input: "nums1=[1,2,3], nums2=[2,5,6]", output: "[1,2,2,3,5,6]" },
+            { input: "nums1=[1,2,3,0,0,0], nums2=[2,5,6]", output: "[1,2,2,3,5,6]" }
         ],
         constraints: [
-            "1 ≤ m,n ≤ 200"
+            "1 ≤ m,n ≤ 200",
+            "1 ≤ m + n ≤ 200",
+            "-10⁹ ≤ nums1[i], nums2[j] ≤ 10⁹"
+
         ],
         starterCode: {
             javascript: `function merge(nums1,m,nums2,n){
@@ -745,13 +768,16 @@ System.out.println(Arrays.toString(nums1));
         category: "Array • Hash Table",
         description: {
             text: "Return the element that appears more than ⌊n/2⌋ times.",
-            notes: []
+            notes: ["Use a hash map to count the frequency of each element.",
+                "Return the element with frequency greater than ⌊n/2⌋."]
         },
         examples: [
-            { input: "nums=[3,2,3]", output: "3" }
+            { input: "nums=[3,2,3]", output: "3" },
+            { input: "nums=[2,2,1,1,1,2,2]", output: "2" }
         ],
         constraints: [
-            "1 ≤ nums.length ≤ 5*10⁴"
+            "1 ≤ nums.length ≤ 5*10⁴",
+            "-10⁹ ≤ nums[i] ≤ 10⁹"
         ],
         starterCode: {
             javascript: `function majorityElement(nums){
@@ -789,14 +815,17 @@ System.out.println(majorityElement(new int[]{3,2,3}));
         category: "String • Sliding Window",
         description: {
             text: "Find the length of the longest substring without repeating characters.",
-            notes: []
+            notes: ["Use a sliding window approach with two pointers.",
+                "Maintain a set to track unique characters in the current window."]
         },
         examples: [
             { input: 's="abcabcbb"', output: "3" },
             { input: 's="bbbbb"', output: "1" }
         ],
         constraints: [
-            "0 ≤ s.length ≤ 5*10⁴"
+            "0 ≤ s.length ≤ 5*10⁴",
+            "s consists of English letters, digits, symbols and spaces."
+
         ],
         starterCode: {
             javascript: `function lengthOfLongestSubstring(s){
@@ -837,13 +866,16 @@ System.out.println(lengthOfLongestSubstring("bbbbb"));
         category: "Binary Search",
         description: {
             text: "Search target in rotated sorted array.",
-            notes: []
+            notes: ["Identify the sorted halves of the array.",
+                "Use binary search to find the target in the appropriate half."]
         },
         examples: [
-            { input: "nums=[4,5,6,7,0,1,2], target=0", output: "4" }
+            { input: "nums=[4,5,6,7,0,1,2], target=0", output: "4" },
+            { input: "nums=[4,5,6,7,0,1,2], target=3", output: "-1" }
         ],
         constraints: [
-            "1 ≤ nums.length ≤ 5000"
+            "1 ≤ nums.length ≤ 5000",
+            "-10⁴ ≤ nums[i] ≤ 10⁴"
         ],
         starterCode: {
             javascript: `function search(nums,target){
@@ -881,7 +913,8 @@ System.out.println(search(new int[]{4,5,6,7,0,1,2},0));
         category: "Array • Two Pointers",
         description: {
             text: "Return all unique triplets such that their sum is zero.",
-            notes: []
+            notes: ["Sort the array first to enable two-pointer technique.",
+                "Skip duplicate elements to ensure unique triplets."]
         },
         examples: [
             { input: "nums=[-1,0,1,2,-1,-4]", output: "[[-1,-1,2],[-1,0,1]]" }
@@ -923,7 +956,8 @@ return new ArrayList<>();
         category: "String • Dynamic Programming",
         description: {
             text: "Given a string s, return the longest palindromic substring in s.",
-            notes: []
+            notes: ["Expand around each character to check for palindromes.",
+                "Keep track of the longest palindrome found so far."]
         },
         examples: [
             { input: 's = "babad"', output: '"bab"' },
@@ -1020,7 +1054,8 @@ System.out.println(coinChange(new int[]{2},3));
         category: "Graph • DFS",
         description: {
             text: "Given a 2D grid of '1's (land) and '0's (water), return the number of islands.",
-            notes: []
+            notes: ["Use DFS or BFS to traverse each island and mark visited cells.",
+                "Count the number of disconnected components in the grid."]
         },
         examples: [
             { input: "grid = [[1,1,0,0],[1,1,0,0],[0,0,1,0],[0,0,0,1]]", output: "3" }
@@ -1070,14 +1105,18 @@ return 0;
         category: "Graph • Topological Sort",
         description: {
             text: "Determine if it is possible to finish all courses given prerequisites.",
-            notes: []
+            notes: ["Model courses and prerequisites as a directed graph.",
+                "Use topological sort or DFS to detect cycles in the graph.",
+                "If a cycle is detected, return false; otherwise, return true."]
         },
         examples: [
             { input: "numCourses=2, prerequisites=[[1,0]]", output: "true" },
             { input: "numCourses=2, prerequisites=[[1,0],[0,1]]", output: "false" }
         ],
         constraints: [
-            "1 ≤ numCourses ≤ 2000"
+            "1 ≤ numCourses ≤ 2000",
+            "0 ≤ prerequisites.length ≤ 5000",
+            "prerequisites[i].length == 2",
         ],
         starterCode: {
             javascript: `function canFinish(numCourses, prerequisites) {
@@ -1116,10 +1155,13 @@ return true;
             notes: ["Implement get and put operations."]
         },
         examples: [
-            { input: "LRUCache(2)", output: "cache operations" }
+            { input: "LRUCache(2)", output: "cache operations" },
+            { input: "put(1,1), put(2,2), get(1), put(3,3), get(2), put(4,4), get(1), get(3), get(4)", output: "[null,null,1,null,-1,null,-1,3,4]" }
         ],
         constraints: [
-            "1 ≤ capacity ≤ 3000"
+            "1 ≤ capacity ≤ 3000",
+            "0 ≤ key ≤ 10⁴",
+            "0 ≤ value ≤ 10⁵",
         ],
         starterCode: {
             javascript: `class LRUCache {
@@ -1174,13 +1216,17 @@ public void put(int key, int value) {
         category: "Array • Sorting",
         description: {
             text: "Given an array of intervals where intervals[i] = [start, end], merge all overlapping intervals.",
-            notes: []
+            notes: ["Sort the intervals by their start times.",
+                "Iterate through the sorted intervals and merge overlapping ones."]
         },
         examples: [
-            { input: "intervals = [[1,3],[2,6],[8,10],[15,18]]", output: "[[1,6],[8,10],[15,18]]" }
+            { input: "intervals = [[1,3],[2,6],[8,10],[15,18]]", output: "[[1,6],[8,10],[15,18]]" },
+            { input: "intervals = [[1,4],[4,5]]", output: "[[1,5]]", explanation: "Intervals [1,4] and [4,5] are considered overlapping." },
+
         ],
         constraints: [
-            "1 ≤ intervals.length ≤ 10⁴"
+            "1 ≤ intervals.length ≤ 10⁴",
+            "intervals[i].length == 2",
         ],
         starterCode: {
             javascript: `function merge(intervals) {
@@ -1216,13 +1262,16 @@ return new int[0][0];
         category: "Array • Prefix",
         description: {
             text: "Return an array answer such that answer[i] is equal to the product of all elements except nums[i].",
-            notes: ["Solve without division."]
+            notes: ["Solve without division.",
+                "Use prefix and suffix products to calculate the result."]
         },
         examples: [
-            { input: "nums=[1,2,3,4]", output: "[24,12,8,6]" }
+            { input: "nums=[1,2,3,4]", output: "[24,12,8,6]", explanation: "The product of all elements except the first element is 2*3*4 = 24. The product of all elements except the second element is 1*3*4 = 12. The product of all elements except the third element is 1*2*4 = 8. The product of all elements except the fourth element is 1*2*3 = 6." },
+            { input: "nums=[-1,1,0,-3,3]", output: "[0,0,9,0,0]", explanation: "The product of all elements except the first element is 1*0*(-3)*3 = 0. The product of all elements except the second element is -1*0*(-3)*3 = 0. The product of all elements except the third element is -1*1*(-3)*3 = 9. The product of all elements except the fourth element is -1*1*0*3 = 0. The product of all elements except the fifth element is -1*1*0*(-3) = 0." }
         ],
         constraints: [
-            "2 ≤ nums.length ≤ 10⁵"
+            "2 ≤ nums.length ≤ 10⁵",
+            "-30 ≤ nums[i] ≤ 30"
         ],
         starterCode: {
             javascript: `function productExceptSelf(nums) {
@@ -1256,13 +1305,16 @@ return nums;
         category: "Heap • Hash Table",
         description: {
             text: "Return the k most frequent elements.",
-            notes: []
+            notes: ["Use a hash map to count the frequency of each element.",
+                "Use a min-heap to keep track of the top k frequent elements."]
         },
         examples: [
-            { input: "nums=[1,1,1,2,2,3], k=2", output: "[1,2]" }
+            { input: "nums=[1,1,1,2,2,3], k=2", output: "[1,2]" },
+            { input: "nums=[1], k=1", output: "[1]", explanation: "The only element in the array is 1, which is also the most frequent." }
         ],
         constraints: [
-            "1 ≤ nums.length ≤ 10⁵"
+            "1 ≤ nums.length ≤ 10⁵",
+            "k is in the range [1, the number of unique elements in the array].",
         ],
         starterCode: {
             javascript: `function topKFrequent(nums,k){
@@ -1296,13 +1348,17 @@ return new int[0];
         category: "Array • HashSet",
         description: {
             text: "Return the length of the longest consecutive elements sequence.",
-            notes: []
+            notes: ["Use a HashSet to store all elements for O(1) lookup.",
+                "For each element, check if it's the start of a sequence."]
         },
         examples: [
-            { input: "nums=[100,4,200,1,3,2]", output: "4" }
+            { input: "nums=[100,4,200,1,3,2]", output: "4" },
+            { input: "nums=[0,3,7,2,5,8,4,6,0,1]", output: "9" }
         ],
         constraints: [
-            "0 ≤ nums.length ≤ 10⁵"
+            "0 ≤ nums.length ≤ 10⁵",
+            "-10⁹ ≤ nums[i] ≤ 10⁹",
+            "The algorithm should run in O(n) time."
         ],
         starterCode: {
             javascript: `function longestConsecutive(nums){
@@ -1336,13 +1392,16 @@ return 0;
         category: "Heap",
         description: {
             text: "Find the kth largest element in the array.",
-            notes: []
+            notes: ["Use a min-heap of size k to keep track of the k largest elements.",
+                "The root of the heap will be the kth largest element."]
         },
         examples: [
-            { input: "nums=[3,2,1,5,6,4], k=2", output: "5" }
+            { input: "nums=[3,2,1,5,6,4], k=2", output: "5", explanation: "The 2nd largest element is 5." },
+            { input: "nums=[3,2,3,1], k=2", output: "3", explanation: "The 2nd largest element is 3." }
         ],
         constraints: [
-            "1 ≤ k ≤ nums.length ≤ 10⁵"
+            "1 ≤ k ≤ nums.length ≤ 10⁵",
+            "-10⁴ ≤ nums[i] ≤ 10⁴"
         ],
         starterCode: {
             javascript: `function findKthLargest(nums,k){
@@ -1376,13 +1435,18 @@ return 0;
         category: "Dynamic Programming",
         description: {
             text: "Return true if the string can be segmented into words from the dictionary.",
-            notes: []
+            notes: ["Use dynamic programming to check if the string can be broken down into valid words.",
+                "Maintain a boolean array to track which positions in the string can be segmented."]
         },
         examples: [
-            { input: 's="leetcode", wordDict=["leet","code"]', output: "true" }
+            { input: 's="leetcode", wordDict=["leet","code"]', output: "true" },
+            { input: 's="applepenapple", wordDict=["apple","pen"]', output: "true", explanation: "The string can be segmented as 'apple pen apple'." },
+            { input: 's="catsandog", wordDict=["cats","dog","sand","and","cat"]', output: "false" }
         ],
         constraints: [
-            "1 ≤ s.length ≤ 300"
+            "1 ≤ s.length ≤ 300",
+            "1 ≤ wordDict.length ≤ 1000",
+            "1 ≤ wordDict[i].length ≤ 20"
         ],
         starterCode: {
             javascript: `function wordBreak(s,wordDict){
@@ -1416,13 +1480,18 @@ return false;
         category: "Binary Search",
         description: {
             text: "Find the median of the two sorted arrays.",
-            notes: []
+            notes: ["Use binary search to partition the two arrays such that the left half contains the smaller elements and the right half contains the larger elements.",
+                "Calculate the median based on the maximum of the left half and the minimum of the right half."]
         },
         examples: [
-            { input: "nums1=[1,3], nums2=[2]", output: "2" }
+            { input: "nums1=[1,3], nums2=[2]", output: "2", explanation: "The median is 2.0" },
+            { input: "nums1=[1,2], nums2=[3,4]", output: "2.5", explanation: "The median is (2 + 3) / 2 = 2.5" }
+
         ],
         constraints: [
-            "0 ≤ nums1.length, nums2.length ≤ 1000"
+            "0 ≤ nums1.length, nums2.length ≤ 1000",
+            "-10⁶ ≤ nums1[i], nums2[i] ≤ 10⁶",
+            "nums1 and nums2 are sorted in non-decreasing order."
         ],
         starterCode: {
             javascript: `function findMedianSortedArrays(nums1,nums2){
@@ -1456,13 +1525,17 @@ return 0;
         category: "Sliding Window",
         description: {
             text: "Return the minimum window substring of s such that every character in t is included.",
-            notes: []
+            notes: ["Use a sliding window approach to find the minimum window.",
+                "Expand the window by moving the right pointer and contract it by moving the left pointer."]
         },
         examples: [
-            { input: 's="ADOBECODEBANC", t="ABC"', output: '"BANC"' }
+            { input: 's="ADOBECODEBANC", t="ABC"', output: '"BANC"', explanation: "The minimum window substring is 'BANC' which contains 'A', 'B', and 'C'." },
+            { input: 's="a", t="a"', output: '"a"', explanation: "The minimum window substring is 'a' which contains 'a'." },
+            { input: 's="a", t="aa"', output: '""', explanation: "The minimum window substring is empty because 'aa' cannot be formed from 'a'." }
         ],
         constraints: [
-            "1 ≤ s.length, t.length ≤ 10⁵"
+            "1 ≤ s.length, t.length ≤ 10⁵",
+            "s and t consist of English letters."
         ],
         starterCode: {
             javascript: `function minWindow(s,t){
@@ -1496,13 +1569,18 @@ return "";
         category: "Two Pointers • Stack",
         description: {
             text: "Compute how much water it can trap after raining.",
-            notes: []
+            notes: ["Use two pointers to traverse the array from both ends.",
+                "Keep track of the maximum height seen so far from both sides."]
         },
         examples: [
-            { input: "height=[0,1,0,2,1,0,1,3,2,1,2,1]", output: "6" }
+            { input: "height=[0,1,0,2,1,0,1,3,2,1,2,1]", output: "6", explanation: "The above elevation map (black section) is represented by array [0,1,0,2,1,0,1,3,2,1,2,1]. In this case, 6 units of rain water (blue section) are being trapped." },
+            { input: "height=[4,2,0,3,2,5]", output: "9" },
+            { input: "height=[0,0,0,0]", output: "0" }
         ],
         constraints: [
-            "1 ≤ height.length ≤ 2*10⁴"
+            "1 ≤ height.length ≤ 2*10⁴",
+            "0 ≤ height[i] ≤ 10⁴",
+            "height[i] is a non-negative integer."
         ],
         starterCode: {
             javascript: `function trap(height){
@@ -1536,13 +1614,16 @@ return 0;
         category: "Dynamic Programming",
         description: {
             text: "Return the minimum number of operations required to convert word1 to word2.",
-            notes: []
+            notes: ["Use dynamic programming to solve the edit distance problem.",
+                "Create a 2D array to store the minimum edit distances between substrings."]
         },
         examples: [
-            { input: 'word1="horse", word2="ros"', output: "3" }
+            { input: 'word1="horse", word2="ros"', output: "3" },
+            { input: 'word1="intention", word2="execution"', output: "5" }
         ],
         constraints: [
-            "0 ≤ word1.length, word2.length ≤ 500"
+            "0 ≤ word1.length, word2.length ≤ 500",
+            "word1 and word2 consist of lowercase English letters."
         ],
         starterCode: {
             javascript: `function minDistance(word1,word2){
