@@ -11,5 +11,7 @@ export const ENV = {
     INNGEST_EVENT_KEY: process.env.INNGEST_EVENT_KEY,
     INNGEST_SIGNING_KEY: process.env.INNGEST_SIGNING_KEY,
     STREAM_API_KEY: process.env.STREAM_API_KEY,
-    STREAM_API_SECRET: process.env.STREAM_API_SECRET
+    STREAM_API_SECRET: process.env.STREAM_API_SECRET,
+    JD_CLIENT_ID: process.env.JD_CLIENT_ID,
+    JD_CLIENT_SECRET: process.env.JD_CLIENT_SECRET,
 }
