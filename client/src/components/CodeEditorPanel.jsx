@@ -10,9 +10,9 @@ function CodeEditorPanel({ selectedLanguage, code, isRunning, onLanguageChange, 
         <div className="flex items-center gap-3">
           <img src={LANGUAGE_CONFIG[selectedLanguage]?.icon} alt={LANGUAGE_CONFIG[selectedLanguage]?.name} className="size-6" />
           <select className='select select-sm' value={selectedLanguage} onChange={onLanguageChange}>
-            {Object.entries(LANGUAGE_CONFIG).map(([key, lang]) => (
+            {Object.entries(LANGUAGE_CONFIG)?.map(([key, lang]) => (
               <option key={key} value={key}>
-                {lang.name}
+                {lang?.name}
               </option>
             ))
             }
@@ -37,7 +37,7 @@ function CodeEditorPanel({ selectedLanguage, code, isRunning, onLanguageChange, 
       <div className='flex-1'>
         <Editor
           height={"100%"}
-          language={LANGUAGE_CONFIG[selectedLanguage].monacoLang}
+          language={LANGUAGE_CONFIG[selectedLanguage]?.monacoLang}
           value={code}
           onChange={onCodeChange}
           theme='vs-dark'

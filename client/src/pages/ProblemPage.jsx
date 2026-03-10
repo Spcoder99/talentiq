@@ -34,7 +34,7 @@ function ProblemPage() {
   const handleLanguageChange = (e) => {
     const newLang = e.target.value;
     setSelectedLanguage(newLang);
-    setCode(currentProblem.starterCode[newLang]);
+    setCode(currentProblem?.starterCode[newLang]);
     setOutput(null);
   };
 
