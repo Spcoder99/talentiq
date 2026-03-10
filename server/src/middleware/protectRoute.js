@@ -15,7 +15,7 @@ export const protectRoute = [
             // find user in db by clerk id
             const user = await User.findOne({ clerkId });
 
-            console.log(user, "user in protectRoute middleware");
+            // console.log(user, "user in protectRoute middleware");
 
             if (!user) {
                 return res.status(404).json({ message: "Unauthorized - user not found" });
