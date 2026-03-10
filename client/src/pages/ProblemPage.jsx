@@ -143,7 +143,7 @@ function ProblemPage() {
           <Panel defaultSize={60} minSize={30}>
             <PanelGroup direction='vertical'>
               {/* Code editor */}
-              <Panel defaultSize={55} minSize={30}>
+              <Panel defaultSize={63} minSize={30}>
                 <CodeEditorPanel
                   selectedLanguage={selectedLanguage}
                   code={code}
@@ -157,7 +157,7 @@ function ProblemPage() {
               <PanelResizeHandle className='h-2 bg-base-300 hover:bg-primary transition-colors cursor-row-resize' />
 
               {/* Output */}
-              <Panel defaultSize={45} minSize={30}>
+              <Panel defaultSize={37} minSize={30}>
                 <OutputPanel output={output} />
               </Panel>
             </PanelGroup>
