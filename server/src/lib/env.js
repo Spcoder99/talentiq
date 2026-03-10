@@ -14,4 +14,7 @@ export const ENV = {
     STREAM_API_SECRET: process.env.STREAM_API_SECRET,
     JD_CLIENT_ID: process.env.JD_CLIENT_ID,
     JD_CLIENT_SECRET: process.env.JD_CLIENT_SECRET,
+    CLERK_PUBLISHABLE_KEY: process.env.CLERK_PUBLISHABLE_KEY,
+    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+
 }
