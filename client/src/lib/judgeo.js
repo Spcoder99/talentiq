@@ -1,7 +1,7 @@
 
 export async function executeCode(language, code, input = "") {
   try {
-    const response = await fetch("http://localhost:3000/api/execute", { // backend endpoint
+    const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/execute`, { // backend endpoint
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ language, code, input }),
