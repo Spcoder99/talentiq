@@ -1,0 +1,427 @@
+:root{
+
+  /* -----------------------
+     RADIUS SYSTEM
+  ----------------------- */
+
+  --rounded-box: 1rem;
+  --rounded-btn: 0.65rem;
+  --rounded-badge: 2rem;
+  --rounded-tab: 0.75rem;
+  --rounded-input: 0.6rem;
+  --rounded-card: 1rem;
+
+  /* -----------------------
+     BORDERS
+  ----------------------- */
+
+  --border-btn: 1px;
+  --tab-border: 1px;
+  --input-border: 1px;
+  --card-border: 1px;
+
+  /* -----------------------
+     BUTTON BEHAVIOR
+  ----------------------- */
+
+  --animation-btn: 0.25s;
+  --btn-focus-scale: 0.97;
+  --btn-active-scale: 0.95;
+
+  /* -----------------------
+     INPUT ANIMATION
+  ----------------------- */
+
+  --animation-input: 0.2s;
+
+  /* -----------------------
+     BADGE
+  ----------------------- */
+
+  --badge-padding-x: 0.6rem;
+  --badge-padding-y: 0.25rem;
+  --badge-font-size: 0.75rem;
+  --badge-font-weight: 600;
+
+  /* badge colors fallback */
+
+  --badge-success-bg: var(--color-success);
+  --badge-warning-bg: var(--color-warning);
+  --badge-error-bg: var(--color-error);
+  --badge-info-bg: var(--color-info);
+
+  --badge-success-text: #022c22;
+  --badge-warning-text: #422006;
+  --badge-error-text: #450a0a;
+  --badge-info-text: #082f49;
+
+  /* -----------------------
+     BUTTON
+  ----------------------- */
+
+  --btn-font-weight: 600;
+  --btn-padding-x: 1rem;
+  --btn-padding-y: 0.5rem;
+
+  /* button status colors */
+
+  --btn-success-bg: var(--color-success);
+  --btn-warning-bg: var(--color-warning);
+  --btn-error-bg: var(--color-error);
+  --btn-info-bg: var(--color-info);
+
+  --btn-success-text: #022c22;
+  --btn-warning-text: #422006;
+  --btn-error-text: #450a0a;
+  --btn-info-text: #082f49;
+
+  /* -----------------------
+     SHADOW SYSTEM
+  ----------------------- */
+
+  --card-shadow: 0 10px 25px rgba(0,0,0,0.25);
+  --btn-shadow: 0 4px 10px rgba(0,0,0,0.2);
+  --dropdown-shadow: 0 12px 30px rgba(0,0,0,0.35);
+
+  /* -----------------------
+     LAYOUT
+  ----------------------- */
+
+  --navbar-height: 64px;
+  --container-padding: 1rem;
+
+  /* -----------------------
+     GLASS EFFECT
+  ----------------------- */
+
+  --glass-opacity: 0.6;
+  --glass-blur: 12px;
+
+  /* -----------------------
+     CODE EDITOR UI
+  ----------------------- */
+
+  --editor-radius: 0.5rem;
+  --panel-radius: 0.75rem;
+
+}
+
+
+/* =================================================
+   FOREST PRO
+================================================= */
+
+@plugin "daisyui/theme"{
+  name: "forestpro";
+  color-scheme: dark;
+
+  --color-primary:#22c55e;
+  --color-primary-content:#022c22;
+
+  --color-secondary:#10b981;
+  --color-secondary-content:#022c22;
+
+  --color-accent:#14b8a6;
+  --color-accent-content:#022c22;
+
+  --color-neutral:#020617;
+  --color-neutral-content:#e5e7eb;
+
+  --color-base-100:#0b1118;
+  --color-base-200:#101720;
+  --color-base-300:#1a2430;
+  --color-base-content:#e5e7eb;
+
+  --color-info:#38bdf8;
+  --color-success:#22c55e;
+  --color-warning:#facc15;
+  --color-error:#ef4444;
+}
+
+
+/* =================================================
+   CODE DARK
+================================================= */
+
+@plugin "daisyui/theme"{
+  name:"codedark";
+  color-scheme:dark;
+
+  --color-primary:#3b82f6;
+  --color-primary-content:#020617;
+
+  --color-secondary:#8b5cf6;
+  --color-secondary-content:#020617;
+
+  --color-accent:#22c55e;
+  --color-accent-content:#022c22;
+
+  --color-neutral:#020617;
+  --color-neutral-content:#e2e8f0;
+
+  --color-base-100:#0f172a;
+  --color-base-200:#1e293b;
+  --color-base-300:#334155;
+  --color-base-content:#e2e8f0;
+
+  --color-info:#38bdf8;
+  --color-success:#22c55e;
+  --color-warning:#f59e0b;
+  --color-error:#ef4444;
+}
+
+
+/* =================================================
+   NEO DARK
+================================================= */
+
+@plugin "daisyui/theme"{
+  name:"neodark";
+  color-scheme:dark;
+
+  --color-primary:#6366f1;
+  --color-primary-content:#020617;
+
+  --color-secondary:#06b6d4;
+  --color-secondary-content:#020617;
+
+  --color-accent:#f59e0b;
+  --color-accent-content:#020617;
+
+  --color-neutral:#030712;
+  --color-neutral-content:#f3f4f6;
+
+  --color-base-100:#0b0f19;
+  --color-base-200:#111827;
+  --color-base-300:#1f2937;
+  --color-base-content:#f3f4f6;
+
+  --color-info:#38bdf8;
+  --color-success:#22c55e;
+  --color-warning:#facc15;
+  --color-error:#ef4444;
+}
+
+
+/* =================================================
+   HACKER MATRIX
+================================================= */
+
+@plugin "daisyui/theme"{
+  name:"hacker";
+  color-scheme:dark;
+
+  --color-primary:#22c55e;
+  --color-primary-content:#022c22;
+
+  --color-secondary:#16a34a;
+  --color-secondary-content:#022c22;
+
+  --color-accent:#4ade80;
+  --color-accent-content:#022c22;
+
+  --color-neutral:#020617;
+  --color-neutral-content:#bbf7d0;
+
+  --color-base-100:#020617;
+  --color-base-200:#0b1118;
+  --color-base-300:#101720;
+  --color-base-content:#bbf7d0;
+
+  --color-info:#38bdf8;
+  --color-success:#22c55e;
+  --color-warning:#facc15;
+  --color-error:#ef4444;
+}
+
+
+/* =================================================
+   MIDNIGHT DEV
+================================================= */
+
+@plugin "daisyui/theme"{
+  name:"midnightdev";
+  color-scheme:dark;
+
+  --color-primary:#6366f1;
+  --color-primary-content:#020617;
+
+  --color-secondary:#8b5cf6;
+  --color-secondary-content:#020617;
+
+  --color-accent:#22c55e;
+  --color-accent-content:#022c22;
+
+  --color-neutral:#020617;
+  --color-neutral-content:#e2e8f0;
+
+  --color-base-100:#020617;
+  --color-base-200:#0f172a;
+  --color-base-300:#1e293b;
+  --color-base-content:#e2e8f0;
+
+  --color-info:#0ea5e9;
+  --color-success:#22c55e;
+  --color-warning:#f59e0b;
+  --color-error:#ef4444;
+}
+
+
+/* =================================================
+   OCEAN DARK
+================================================= */
+
+@plugin "daisyui/theme"{
+  name:"oceandark";
+  color-scheme:dark;
+
+  --color-primary:#06b6d4;
+  --color-primary-content:#020617;
+
+  --color-secondary:#0ea5e9;
+  --color-secondary-content:#020617;
+
+  --color-accent:#22c55e;
+  --color-accent-content:#022c22;
+
+  --color-neutral:#020617;
+  --color-neutral-content:#e2e8f0;
+
+  --color-base-100:#020617;
+  --color-base-200:#0f172a;
+  --color-base-300:#1e293b;
+  --color-base-content:#e2e8f0;
+
+  --color-info:#38bdf8;
+  --color-success:#22c55e;
+  --color-warning:#facc15;
+  --color-error:#ef4444;
+}
+
+
+/* =================================================
+   CRIMSON DEV
+================================================= */
+
+@plugin "daisyui/theme"{
+  name:"crimsondev";
+  color-scheme:dark;
+
+  --color-primary:#ef4444;
+  --color-primary-content:#020617;
+
+  --color-secondary:#f97316;
+  --color-secondary-content:#020617;
+
+  --color-accent:#facc15;
+  --color-accent-content:#020617;
+
+  --color-neutral:#030712;
+  --color-neutral-content:#f3f4f6;
+
+  --color-base-100:#030712;
+  --color-base-200:#111827;
+  --color-base-300:#1f2937;
+  --color-base-content:#f3f4f6;
+
+  --color-info:#38bdf8;
+  --color-success:#22c55e;
+  --color-warning:#facc15;
+  --color-error:#ef4444;
+}
+
+
+/* =================================================
+   OBSIDIAN
+================================================= */
+
+@plugin "daisyui/theme"{
+  name:"obsidian";
+  color-scheme:dark;
+
+  --color-primary:#a855f7;
+  --color-primary-content:#020617;
+
+  --color-secondary:#6366f1;
+  --color-secondary-content:#020617;
+
+  --color-accent:#f59e0b;
+  --color-accent-content:#020617;
+
+  --color-neutral:#030712;
+  --color-neutral-content:#e5e7eb;
+
+  --color-base-100:#020617;
+  --color-base-200:#030712;
+  --color-base-300:#111827;
+  --color-base-content:#e5e7eb;
+
+  --color-info:#38bdf8;
+  --color-success:#22c55e;
+  --color-warning:#facc15;
+  --color-error:#ef4444;
+}
+
+
+/* =================================================
+   GRAPHITE
+================================================= */
+
+@plugin "daisyui/theme"{
+  name:"graphite";
+  color-scheme:dark;
+
+  --color-primary:#9ca3af;
+  --color-primary-content:#020617;
+
+  --color-secondary:#6b7280;
+  --color-secondary-content:#020617;
+
+  --color-accent:#22c55e;
+  --color-accent-content:#022c22;
+
+  --color-neutral:#111827;
+  --color-neutral-content:#f3f4f6;
+
+  --color-base-100:#030712;
+  --color-base-200:#111827;
+  --color-base-300:#1f2937;
+  --color-base-content:#f3f4f6;
+
+  --color-info:#38bdf8;
+  --color-success:#22c55e;
+  --color-warning:#facc15;
+  --color-error:#ef4444;
+}
+
+
+/* =================================================
+   AURORA DARK
+================================================= */
+
+@plugin "daisyui/theme"{
+  name:"auroradark";
+  color-scheme:dark;
+
+  --color-primary:#22c55e;
+  --color-primary-content:#022c22;
+
+  --color-secondary:#6366f1;
+  --color-secondary-content:#020617;
+
+  --color-accent:#06b6d4;
+  --color-accent-content:#020617;
+
+  --color-neutral:#020617;
+  --color-neutral-content:#f1f5f9;
+
+  --color-base-100:#020617;
+  --color-base-200:#0f172a;
+  --color-base-300:#1e293b;
+  --color-base-content:#f1f5f9;
+
+  --color-info:#38bdf8;
+  --color-success:#22c55e;
+  --color-warning:#facc15;
+  --color-error:#ef4444;
+}
