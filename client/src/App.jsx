@@ -8,6 +8,7 @@ import HomePage from "./pages/HomePage";
 import ProblemPage from "./pages/ProblemPage";
 import ProblemsPage from "./pages/ProblemsPage";
 import SessionPage from "./pages/SessionPage";
+import CommunityPage from "./pages/CommunityPage";
 // import ProblemPage from "./pages/ProblemPage";
 
 
@@ -25,6 +26,7 @@ function App() {
       <Route path="/problems" element={ isSignedIn ? <ProblemsPage/> : <Navigate to={"/"}/>} />
       <Route path="/problem/:id" element={ isSignedIn ? <ProblemPage/> : <Navigate to={"/"}/>} />
       <Route path="/session/:id" element={ isSignedIn ? <SessionPage/> : <Navigate to={"/"}/>} />
+      <Route path="/community" element={isSignedIn ? <CommunityPage/> : <Navigate to={"/"}/>} />
     </Routes>
     <Toaster position="bottom-right" toastOptions={{duration: 2500}}/>
     </>

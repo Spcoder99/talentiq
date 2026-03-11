@@ -10,6 +10,9 @@ import ActiveSessions from '../components/ActiveSessions';
 import RecentSessions from '../components/RecentSessions';
 import CreateSessionModal from '../components/CreateSessionModal';
 import Footer from '../components/Footer';
+import PerformanceInsights from '../components/PerformanceInsights';
+import QuickActions from '../components/QuickActions';
+import ProductivityTips from '../components/ProductivityTips';
 
 function DashboardPage() {
 
@@ -71,6 +74,13 @@ function DashboardPage() {
 
           <RecentSessions sessions={recentSessions} isLoading={loadingRecentSessions} />
 
+          <PerformanceInsights
+            activeSessionsCount={activeSessions.length}
+            recentSessionsCount={recentSessions.length}
+          />
+
+          <QuickActions onCreateSession={() => setShowCreateModal(true)} />
+            <ProductivityTips />
         </div>
         <Footer />
       </div>

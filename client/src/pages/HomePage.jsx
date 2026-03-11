@@ -246,55 +246,110 @@ const HomePage = () => {
       </div>
 
       {/* HOW IT WORKS */}
-      <div className="max-w-7xl mx-auto px-4 py-20">
-        <div className="text-center mb-16">
+      <div className="max-w-7xl mx-auto px-4 pt-16 pb-41">
+
+        {/* Heading */}
+        <div className="text-center mb-20">
           <h2 className="text-4xl font-bold mb-4">
             How <span className="text-primary font-mono">Skill IQ</span> Works
           </h2>
+
           <p className="text-lg text-base-content/70 max-w-2xl mx-auto">
-            A streamlined process for conducting coding interviews and collaborative problem solving.
+            A seamless workflow designed to make coding interviews fast, interactive,
+            and collaborative.
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8">
+
+        {/* Steps */}
+        <div className="grid md:grid-cols-3 gap-10 relative">
+
+          {/* Step Line */}
+          <div className="hidden md:block absolute top-14 left-0 right-0 h-[2px] bg-base-300 z-0"></div>
+
 
           {/* Step 1 */}
-          <div className="card bg-base-100 shadow-xl border border-base-300 duration-300 hover:-translate-y-2 transition-all hover:shadow-2xl hover:border-primary/50">
-            <div className="card-body items-center text-center">
-              <div className="size-16 rounded-2xl bg-primary/10 flex items-center justify-center">
-                <SparklesIcon className="size-8 text-primary" />
-              </div>
-              <h3 className="card-title">Create Interview Room</h3>
-              <p className="text-base-content/70">
-                Instantly create a private interview session and invite candidates.
-              </p>
+          <div className="relative z-10 text-center group">
+
+            {/* Number */}
+            <div className="mx-auto mb-6 size-12 rounded-full bg-primary text-white flex items-center justify-center font-bold text-lg shadow-lg">
+              1
             </div>
+
+            <div className="card bg-base-100 shadow-xl border border-base-300 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-primary/50">
+
+              <div className="card-body items-center text-center">
+
+                <div className="size-16 rounded-2xl bg-primary/10 flex items-center justify-center group-hover:scale-110 transition">
+                  <SparklesIcon className="size-8 text-primary" />
+                </div>
+
+                <h3 className="card-title">Create Interview Room</h3>
+
+                <p className="text-base-content/70">
+                  Start a private coding interview room instantly and invite
+                  candidates with a simple link.
+                </p>
+
+              </div>
+            </div>
+
           </div>
+
 
           {/* Step 2 */}
-          <div className="card bg-base-100 shadow-xl border border-base-300 duration-300 hover:-translate-y-2 transition-all hover:shadow-2xl hover:border-primary/50">
-            <div className="card-body items-center text-center">
-              <div className="size-16 rounded-2xl bg-secondary/10 flex items-center justify-center">
-                <VideoIcon className="size-8 text-secondary" />
-              </div>
-              <h3 className="card-title">Collaborate in Real Time</h3>
-              <p className="text-base-content/70">
-                Discuss problems face-to-face while writing code together.
-              </p>
+          <div className="relative z-10 text-center group">
+
+            <div className="mx-auto mb-6 size-12 rounded-full bg-secondary text-white flex items-center justify-center font-bold text-lg shadow-lg">
+              2
             </div>
+
+            <div className="card bg-base-100 shadow-xl border border-base-300 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-secondary/50">
+
+              <div className="card-body items-center text-center">
+
+                <div className="size-16 rounded-2xl bg-secondary/10 flex items-center justify-center group-hover:scale-110 transition">
+                  <VideoIcon className="size-8 text-secondary" />
+                </div>
+
+                <h3 className="card-title">Collaborate Live</h3>
+
+                <p className="text-base-content/70">
+                  Conduct face-to-face interviews while solving coding challenges
+                  together in real time.
+                </p>
+
+              </div>
+            </div>
+
           </div>
 
+
           {/* Step 3 */}
-          <div className="card bg-base-100 shadow-xl border border-base-300 duration-300 hover:-translate-y-2 transition-all hover:shadow-2xl hover:border-primary/50">
-            <div className="card-body items-center text-center">
-              <div className="size-16 rounded-2xl bg-accent/10 flex items-center justify-center">
-                <ZapIcon className="size-8 text-accent" />
-              </div>
-              <h3 className="card-title">Evaluate & Decide</h3>
-              <p className="text-base-content/70">
-                Review the candidate's approach and performance instantly.
-              </p>
+          <div className="relative z-10 text-center group">
+
+            <div className="mx-auto mb-6 size-12 rounded-full bg-accent text-white flex items-center justify-center font-bold text-lg shadow-lg">
+              3
             </div>
+
+            <div className="card bg-base-100 shadow-xl border border-base-300 transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:border-accent/50">
+
+              <div className="card-body items-center text-center">
+
+                <div className="size-16 rounded-2xl bg-accent/10 flex items-center justify-center group-hover:scale-110 transition">
+                  <ZapIcon className="size-8 text-accent" />
+                </div>
+
+                <h3 className="card-title">Evaluate Instantly</h3>
+
+                <p className="text-base-content/70">
+                  Analyze solutions, review coding logic, and evaluate candidates
+                  quickly and efficiently.
+                </p>
+
+              </div>
+            </div>
+
           </div>
 
         </div>
@@ -369,7 +424,7 @@ const HomePage = () => {
 
 
       {/* FINAL CTA */}
-      <div className="py-24">
+      <div className="pt-41 pb-24">
         <div className="max-w-5xl mx-auto px-4 text-center">
 
           <div className="card bg-base-100 border border-primary/30 shadow-2xl">
