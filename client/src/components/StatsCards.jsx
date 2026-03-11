@@ -1,4 +1,4 @@
-import { TrophyIcon, UsersIcon } from "lucide-react";
+import { MedalIcon, TrophyIcon, UsersIcon } from "lucide-react";
 
 function StatsCards({ activeSessionsCount, recentSessionsCount }) {
   return (
@@ -22,7 +22,7 @@ function StatsCards({ activeSessionsCount, recentSessionsCount }) {
         <div className="card-body">
           <div className="flex items-center justify-between mb-3">
             <div className="p-3 bg-secondary/10 rounded-2xl">
-              <TrophyIcon className="w-5 h-5 text-secondary" />
+              <MedalIcon className="w-5 h-5 text-secondary" />
             </div>
           </div>
           <div className="text-3xl font-black mb-1">{recentSessionsCount}</div>

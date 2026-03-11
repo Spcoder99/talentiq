@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
-import { CheckIcon, Code2Icon, SparklesIcon, UsersIcon, VideoIcon, ZapIcon } from 'lucide-react'
+import { CheckIcon, Code2Icon, SparklesIcon, SquareTerminalIcon, UsersIcon, VideoIcon, ZapIcon } from 'lucide-react'
 import { SignInButton } from '@clerk/clerk-react'
 import { ArrowRightIcon } from 'lucide-react'
 
@@ -18,7 +18,7 @@ const HomePage = () => {
             className="flex items-center gap-3 hover:scale-105 transition-transform duration-200"
           >
             <div className='size-10 rounded-xl bg-linear-to-br from-primary via-secondary to-accent flex items-center justify-center shadow-lg'>
-              <SparklesIcon className='size-6 text-white' />
+              <SquareTerminalIcon className='size-6 text-white' />
             </div>
 
             <div className='flex flex-col'>
@@ -30,9 +30,23 @@ const HomePage = () => {
           </Link>
 
           {/* AUTH BTN */}
-          <SignInButton mode="modal">
+          <SignInButton
+            mode="modal"
+            appearance={{
+              variables: {
+                colorPrimary: "#22c55e",
+                colorBackground: "#020617",
+                colorInputBackground: "#1e293b",
+                colorText: "#f8fafc",
+                colorTextSecondary: "#94a3b8",
+                colorNeutral: "#f8fafc",
+                colorInputText: "#f8fafc",
+                borderRadius: "12px",
+              },
+            }}
+          >
             <button className="group px-6 py-3 bg-linear-to-r from-primary to-secondary rounded-xl text-white font-semibold text-sm shadow-lg hover:shadow-xl transition-all duration-200 hover:scale-105 flex items-center gap-2">
-              <span>Get Started</span>
+              <span>Get Started Free</span>
               <ArrowRightIcon className="size-4 group-hover:translate-x-0.5 transition-transform" />
             </button>
           </SignInButton>
@@ -49,7 +63,7 @@ const HomePage = () => {
           <div className="space-y-8">
             <div className="badge badge-primary badge-lg">
               <ZapIcon className="size-4" />
-              Real-time Collaboration
+              Real-Time Coding Interviews
             </div>
 
             <h1 className="text-5xl lg:text-6xl font-black leading-tight">
@@ -58,19 +72,19 @@ const HomePage = () => {
               </span>
               <br />
               <span className="text-base-content">
-                Learn Together
+                Master Together
               </span>
             </h1>
             <p className="text-xl text-base-content/70 leading-relaxed max-w-xl">
-              The ultimate platform for collaborative coding interviews and pair programming.
-              Connect face-to-face, code in real-time, and ace your technical interviews.
+              Skill IQ is a modern platform designed for developers to conduct live coding interviews.
+              practice technical problems, and collaborate with teammates in real-time using video.
             </p>
 
             {/* FEATURES PILLS */}
             <div className='flex flex-wrap gap-3'>
               <div className='badge badge-lg badge-outline'>
                 <CheckIcon className='size-4 text-success' />
-                Live Video Chat
+                Live Video Interviews
               </div>
               <div className="badge badge-lg badge-outline">
                 <CheckIcon className="size-4 text-success" />
@@ -85,9 +99,23 @@ const HomePage = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-wrap gap-4">
-              <SignInButton mode="modal">
+              <SignInButton
+                mode="modal"
+                appearance={{
+                  variables: {
+                    colorPrimary: "#22c55e",
+                    colorBackground: "#020617",
+                    colorInputBackground: "#1e293b",
+                    colorText: "#f8fafc",
+                    colorTextSecondary: "#94a3b8",
+                    colorNeutral: "#f8fafc",
+                    colorInputText: "#f8fafc",
+                    borderRadius: "12px",
+                  },
+                }}
+              >
                 <button className="btn btn-primary btn-lg">
-                  Start Coding Now
+                  Start Interview Session
                   <ArrowRightIcon className="size-5" />
                 </button>
               </SignInButton>
@@ -101,22 +129,22 @@ const HomePage = () => {
             {/* STATS */}
             <div className="stats stats-vertical lg:stats-horizontal bg-base-100 shadow-lg">
               <div className="stat">
-                <div className="stat-value text-primary">10K+</div>
+                <div className="stat-value text-primary">7K+</div>
                 <div className="stat-title">Active Users</div>
               </div>
               <div className="stat">
-                <div className="stat-value text-secondary">50K+</div>
+                <div className="stat-value text-secondary">20K+</div>
                 <div className="stat-title">Sessions</div>
               </div>
               <div className="stat">
-                <div className="stat-value text-accent">99.9%</div>
+                <div className="stat-value text-accent">97.9%</div>
                 <div className="stat-title">Uptime</div>
               </div>
             </div>
           </div>
 
           {/* RIGHT IMAGE */}
-          <img src="/hero.png" alt="CodeCollab Platform" className="w-[94%] h-auto rounded-3xl shadow-2xl border-4 border-base-100 hover:scale-105 transition-transform duration-500" />
+          <img src="/hero2.png" alt="CodeCollab Platform" className="w-[94%] h-auto rounded-3xl shadow-2xl border-4 border-base-100 hover:scale-105 transition-transform duration-500" />
 
         </div>
       </div>
@@ -140,9 +168,10 @@ const HomePage = () => {
               <div className="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
                 <VideoIcon className="size-8 text-primary" />
               </div>
-              <h3 className="card-title">HD Video Call</h3>
+              <h3 className="card-title">Face-to-Face Interviews</h3>
               <p className="text-base-content/70">
-                Crystal clear video and audio for seamless communication during interviews
+                Conduct real-time video interviews with candidates and discuss
+                solutions seamlessly while coding together.
               </p>
             </div>
           </div>
@@ -155,7 +184,8 @@ const HomePage = () => {
               </div>
               <h3 className="card-title">Live Code Editor</h3>
               <p className="text-base-content/70">
-                Collaborate in real-time with syntax highlighting and multiple language support
+                Write, run, and collaborate on code with syntax highlighting,
+                multiple languages, and real-time updates.
               </p>
             </div>
           </div>
@@ -166,9 +196,10 @@ const HomePage = () => {
               <div className="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
                 <UsersIcon className="size-8 text-primary" />
               </div>
-              <h3 className="card-title">Easy Collaboration</h3>
+              <h3 className="card-title">Smooth Collaboration</h3>
               <p className="text-base-content/70">
-                Share your screen, discuss solutions, and learn from each other in real-time
+                Share screens, review solutions together, and work collaboratively
+                with teammates or candidates in one unified workspace.
               </p>
             </div>
           </div>

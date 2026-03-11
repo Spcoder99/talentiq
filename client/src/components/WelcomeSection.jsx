@@ -1,5 +1,5 @@
 import { useUser } from "@clerk/clerk-react";
-import { ArrowRightIcon, SparklesIcon, ZapIcon } from "lucide-react";
+import { ArrowRightIcon, BoltIcon, SparklesIcon, ZapIcon } from "lucide-react";
 
 function WelcomeSection({ onCreateSession }) {
   const { user } = useUser();
@@ -18,7 +18,7 @@ function WelcomeSection({ onCreateSession }) {
               </h1>
             </div>
             <p className="text-md text-base-content/60 ml-16">
-              Ready to level up your coding skills?
+              Ready to level up your coding knowledge?
             </p>
           </div>
           <button
@@ -26,7 +26,7 @@ function WelcomeSection({ onCreateSession }) {
             className="group px-6 py-3 bg-linear-to-r from-primary to-secondary rounded-2xl transition-all duration-200 hover:opacity-90"
           >
             <div className="flex items-center gap-2 text-white font-bold text-md">
-              <ZapIcon className="w-5 h-5" />
+              <BoltIcon className="w-5 h-5" />
               <span>Create Session</span>
               <ArrowRightIcon className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </div>

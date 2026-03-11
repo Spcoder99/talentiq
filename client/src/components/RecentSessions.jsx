@@ -1,4 +1,4 @@
-import { Code2, Clock, Users, Trophy, Loader } from "lucide-react";
+import { Code2, Clock, Users, Trophy, Loader, MedalIcon } from "lucide-react";
 import { getDifficultyBadgeClass } from "../lib/utils";
 import { formatDistanceToNow } from "date-fns";
 
@@ -88,7 +88,7 @@ function RecentSessions({ sessions, isLoading }) {
           ) : (
             <div className="col-span-full text-center py-16">
               <div className="w-20 h-20 mx-auto mb-4 bg-gradient-to-br from-accent/20 to-secondary/20 rounded-3xl flex items-center justify-center">
-                <Trophy className="w-10 h-10 text-accent/50" />
+                <MedalIcon className="w-10 h-10 text-accent/50" />
               </div>
               <p className="text-lg font-semibold opacity-70 mb-1">No sessions yet</p>
               <p className="text-sm opacity-50">Start your coding journey today!</p>

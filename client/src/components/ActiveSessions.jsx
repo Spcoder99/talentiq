@@ -6,6 +6,7 @@ import {
   UsersIcon,
   ZapIcon,
   LoaderIcon,
+  RadioIcon,
 } from "lucide-react";
 import { Link } from "react-router";
 import { getDifficultyBadgeClass } from "../lib/utils";
@@ -19,7 +20,7 @@ function ActiveSessions({ sessions, isLoading, isUserInSession }) {
           {/* TITLE AND ICON */}
           <div className="flex items-center gap-3">
             <div className="p-2 bg-linear-to-br from-primary to-secondary rounded-xl">
-              <ZapIcon className="size-4" />
+              <RadioIcon className="size-4" />
             </div>
             <h2 className="text-xl font-black">Live Sessions</h2>
           </div>
