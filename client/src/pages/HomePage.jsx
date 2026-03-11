@@ -245,6 +245,172 @@ const HomePage = () => {
         </div>
       </div>
 
+      {/* HOW IT WORKS */}
+      <div className="max-w-7xl mx-auto px-4 py-20">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl font-bold mb-4">
+            How <span className="text-primary font-mono">Skill IQ</span> Works
+          </h2>
+          <p className="text-lg text-base-content/70 max-w-2xl mx-auto">
+            A streamlined process for conducting coding interviews and collaborative problem solving.
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8">
+
+          {/* Step 1 */}
+          <div className="card bg-base-100 shadow-xl border border-base-300 duration-300 hover:-translate-y-2 transition-all hover:shadow-2xl hover:border-primary/50">
+            <div className="card-body items-center text-center">
+              <div className="size-16 rounded-2xl bg-primary/10 flex items-center justify-center">
+                <SparklesIcon className="size-8 text-primary" />
+              </div>
+              <h3 className="card-title">Create Interview Room</h3>
+              <p className="text-base-content/70">
+                Instantly create a private interview session and invite candidates.
+              </p>
+            </div>
+          </div>
+
+          {/* Step 2 */}
+          <div className="card bg-base-100 shadow-xl border border-base-300 duration-300 hover:-translate-y-2 transition-all hover:shadow-2xl hover:border-primary/50">
+            <div className="card-body items-center text-center">
+              <div className="size-16 rounded-2xl bg-secondary/10 flex items-center justify-center">
+                <VideoIcon className="size-8 text-secondary" />
+              </div>
+              <h3 className="card-title">Collaborate in Real Time</h3>
+              <p className="text-base-content/70">
+                Discuss problems face-to-face while writing code together.
+              </p>
+            </div>
+          </div>
+
+          {/* Step 3 */}
+          <div className="card bg-base-100 shadow-xl border border-base-300 duration-300 hover:-translate-y-2 transition-all hover:shadow-2xl hover:border-primary/50">
+            <div className="card-body items-center text-center">
+              <div className="size-16 rounded-2xl bg-accent/10 flex items-center justify-center">
+                <ZapIcon className="size-8 text-accent" />
+              </div>
+              <h3 className="card-title">Evaluate & Decide</h3>
+              <p className="text-base-content/70">
+                Review the candidate's approach and performance instantly.
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+
+
+      {/* TESTIMONIALS */}
+      <div className="bg-base-100 py-20">
+        <div className="max-w-7xl mx-auto px-4">
+
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold mb-4">
+              Trusted by <span className="text-primary">Developers</span>
+            </h2>
+            <p className="text-lg text-base-content/70">
+              See what developers and recruiters say about Skill IQ
+            </p>
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+
+            <div className="card bg-base-200 shadow-xl border border-base-300 duration-300 hover:-translate-y-2 transition-all hover:shadow-2xl hover:border-primary/50">
+              <div className="card-body">
+                <p className="text-base-content/70">
+                  “Skill IQ completely transformed how we conduct technical interviews.
+                  The live coding environment is smooth and reliable.”
+                </p>
+                <div className="mt-4">
+                  <h4 className="font-semibold">Rahul Verma</h4>
+                  <span className="text-sm text-base-content/60">
+                    Senior Software Engineer
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="card bg-base-200 shadow-xl border border-base-300 duration-300 hover:-translate-y-2 transition-all hover:shadow-2xl hover:border-primary/50">
+              <div className="card-body">
+                <p className="text-base-content/70">
+                  “The combination of video and coding in one platform makes interviews
+                  feel natural and productive.”
+                </p>
+                <div className="mt-4">
+                  <h4 className="font-semibold">Ananya Sharma</h4>
+                  <span className="text-sm text-base-content/60">
+                    Technical Recruiter
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="card bg-base-200 shadow-xl border border-base-300 duration-300 hover:-translate-y-2 transition-all hover:shadow-2xl hover:border-primary/50">
+              <div className="card-body">
+                <p className="text-base-content/70">
+                  “A beautifully designed platform that helps us evaluate candidates
+                  quickly and efficiently.”
+                </p>
+                <div className="mt-4">
+                  <h4 className="font-semibold">Michael Lee</h4>
+                  <span className="text-sm text-base-content/60">
+                    CTO
+                  </span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+
+      {/* FINAL CTA */}
+      <div className="py-24">
+        <div className="max-w-5xl mx-auto px-4 text-center">
+
+          <div className="card bg-base-100 border border-primary/30 shadow-2xl">
+
+            <div className="card-body py-16">
+
+              <h2 className="text-4xl font-bold mb-4">
+                Ready to Transform Your
+                <span className="bg-linear-to-r from-primary via-secondary to-accent bg-clip-text text-transparent">
+                  {" "}Coding Interviews?
+                </span>
+              </h2>
+
+              <p className="text-lg text-base-content/70 max-w-xl mx-auto">
+                Join thousands of developers and engineering teams using Skill IQ
+                to conduct high-quality coding interviews.
+              </p>
+
+              <div className="flex justify-center gap-4 mt-8">
+
+                <SignInButton mode="modal">
+                  <button className="btn btn-primary btn-lg">
+                    Start Free Interview
+                    <ArrowRightIcon className="size-5" />
+                  </button>
+                </SignInButton>
+
+                <label htmlFor="demo-video" className="btn btn-outline btn-lg">
+                  Watch Demo
+                </label>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </div>
+
+
       <input type="checkbox" id="demo-video" className="modal-toggle" />
 
       <div className="modal backdrop-blur-sm">
