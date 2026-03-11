@@ -221,7 +221,23 @@ function Navbar() {
 
                     {/* USER */}
                     <div className="flex items-center ml-2">
-                        <UserButton />
+                        <UserButton appearance={{
+                            variables: {
+                                colorPrimary: "#22c55e",
+                                colorBackground: "#020617",
+                                colorInputBackground: "#1e293b",
+                                colorText: "#f8fafc",
+                                colorTextSecondary: "#94a3b8",
+                                colorNeutral: "#f8fafc",
+                                colorInputText: "#f8fafc",
+                                borderRadius: "12px",
+                            },
+                            elements: {
+                                 avatarBox: "ring-2 ring-primary/30 hover:ring-primary transition",
+                            }
+                        }}
+
+                        />
                     </div>
 
                 </div>
