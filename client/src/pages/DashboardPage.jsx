@@ -9,6 +9,7 @@ import StatsCards from '../components/StatsCards';
 import ActiveSessions from '../components/ActiveSessions';
 import RecentSessions from '../components/RecentSessions';
 import CreateSessionModal from '../components/CreateSessionModal';
+import Footer from '../components/Footer';
 
 function DashboardPage() {
 
@@ -71,7 +72,10 @@ function DashboardPage() {
           <RecentSessions sessions={recentSessions} isLoading={loadingRecentSessions} />
 
         </div>
+        <Footer />
       </div>
+
+
 
       <CreateSessionModal isOpen={showCreateModal} onClose={() => setShowCreateModal(false)} roomConfig={roomConfig} setRoomConfig={setRoomConfig} onCreateRoom={handleCreateRoom} isCreating={createSessionMutation.isPending} />
     </>

@@ -3,6 +3,7 @@ import { Link } from 'react-router'
 import { CheckIcon, Code2Icon, SparklesIcon, SquareTerminalIcon, UsersIcon, VideoIcon, ZapIcon } from 'lucide-react'
 import { SignInButton } from '@clerk/clerk-react'
 import { ArrowRightIcon } from 'lucide-react'
+import Footer from '../components/Footer'
 
 const HomePage = () => {
   return (
@@ -120,10 +121,10 @@ const HomePage = () => {
                 </button>
               </SignInButton>
 
-              <button className="btn btn-outline btn-lg">
+              <label htmlFor="demo-video" className="btn btn-outline btn-lg">
                 <VideoIcon className="size-5" />
                 Watch Demo
-              </button>
+              </label>
             </div>
 
             {/* STATS */}
@@ -162,49 +163,133 @@ const HomePage = () => {
 
         {/* FEATURES GRID */}
         <div className="grid md:grid-cols-3 gap-8">
+
           {/* Feature 1 */}
-          <div className="card bg-base-100 shadow-xl">
+          <div className="card bg-base-100 shadow-xl  border border-base-300
+  transition-all duration-300 
+  hover:-translate-y-2 hover:shadow-2xl 
+   hover:border-primary/50">
+
             <div className="card-body items-center text-center">
-              <div className="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
-                <VideoIcon className="size-8 text-primary" />
+
+              <div className="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 
+      transition-all duration-300 
+      group-hover:scale-110">
+
+                <VideoIcon className="size-8 text-primary transition-transform duration-300 hover:scale-110" />
+
               </div>
+
               <h3 className="card-title">Face-to-Face Interviews</h3>
+
               <p className="text-base-content/70">
                 Conduct real-time video interviews with candidates and discuss
                 solutions seamlessly while coding together.
               </p>
+
             </div>
           </div>
 
+
           {/* Feature 2 */}
-          <div className="card bg-base-100 shadow-xl">
+          <div className="card bg-base-100 shadow-xl  border border-base-300
+  transition-all duration-300 
+  hover:-translate-y-2 hover:shadow-2xl 
+   hover:border-primary/50">
+
             <div className="card-body items-center text-center">
-              <div className="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
-                <Code2Icon className="size-8 text-primary" />
+
+              <div className="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 
+      transition-all duration-300">
+
+                <Code2Icon className="size-8 text-primary transition-transform duration-300 hover:scale-110" />
+
               </div>
+
               <h3 className="card-title">Live Code Editor</h3>
+
               <p className="text-base-content/70">
                 Write, run, and collaborate on code with syntax highlighting,
                 multiple languages, and real-time updates.
               </p>
+
             </div>
           </div>
 
+
           {/* Feature 3 */}
-          <div className="card bg-base-100 shadow-xl">
+          <div className="card bg-base-100 shadow-xl  border border-base-300
+  transition-all duration-300 
+  hover:-translate-y-2 hover:shadow-2xl 
+ hover:border-primary/50">
+
             <div className="card-body items-center text-center">
-              <div className="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4">
-                <UsersIcon className="size-8 text-primary" />
+
+              <div className="size-16 bg-primary/10 rounded-2xl flex items-center justify-center mb-4 
+      transition-all duration-300">
+
+                <UsersIcon className="size-8 text-primary transition-transform duration-300 hover:scale-110" />
+
               </div>
+
               <h3 className="card-title">Smooth Collaboration</h3>
+
               <p className="text-base-content/70">
                 Share screens, review solutions together, and work collaboratively
                 with teammates or candidates in one unified workspace.
               </p>
+
             </div>
           </div>
+
         </div>
       </div>
+
+      <input type="checkbox" id="demo-video" className="modal-toggle" />
+
+      <div className="modal backdrop-blur-sm">
+
+        <div className="modal-box max-w-5xl p-0 bg-base-100 rounded-2xl shadow-2xl border border-base-300  border-primary/30 relative">
+
+          {/* CLOSE BUTTON */}
+          <label
+            htmlFor="demo-video"
+            className="btn btn-sm btn-circle btn-ghost absolute right-3 top-3 z-10"
+          >
+            ✕
+          </label>
+
+          {/* VIDEO HEADER */}
+          <div className="px-6 py-4 border-b border-primary/30 border-base-300 flex items-center justify-between">
+            <h3 className="font-semibold text-lg">Skill IQ Demo</h3>
+          </div>
+
+          {/* VIDEO CONTAINER */}
+          <div className="p-4">
+
+            <div className="rounded-xl overflow-hidden shadow-lg border border-base-300 border-primary/40">
+
+              <div className="w-full aspect-video bg-black">
+
+                <iframe
+                  className="w-full h-full"
+                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                  title="Skill IQ Demo"
+                  allowFullScreen
+                />
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+      </div>
+
+      {/* TESTIMONIALS */}
+      <Footer />
     </div>
   )
 }

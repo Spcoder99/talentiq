@@ -4,6 +4,7 @@ import { PROBLEMS } from '../data/problems.js'
 import { ChevronRightIcon, Code2Icon } from 'lucide-react';
 import { getDifficultyBadgeClass } from '../lib/utils.js';
 import { Link } from 'react-router';
+import Footer from '../components/Footer.jsx';
 
 const ProblemsPage = () => {
 
@@ -95,6 +96,8 @@ transition-all duration-300 ease-out">
 
 
       </div>
+
+      <Footer />
     </div>
   )
 }

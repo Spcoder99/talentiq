@@ -10,6 +10,7 @@ import CodeEditorPanel from '../components/CodeEditorPanel.jsx';
 import { executeCode } from '../lib/judgeo.js';
 import { toast } from 'react-hot-toast';
 import confetti from 'canvas-confetti';
+import Footer from '../components/Footer.jsx';
 
 function ProblemPage() {
   const { id } = useParams();
@@ -164,6 +165,8 @@ function ProblemPage() {
           </Panel>
         </PanelGroup>
       </div>
+
+      <Footer />
     </div>
   );
 }
