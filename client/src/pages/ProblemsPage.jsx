@@ -31,7 +31,10 @@ const ProblemsPage = () => {
 
         <div className='space-y-4'>
           {problems.map((problem) => (
-            <Link key={problem.id} to={`/problem/${problem.id}`} className="card bg-base-100  hover:scale-[1.01] transition-transform">
+            <Link key={problem.id} to={`/problem/${problem.id}`} className="card bg-base-100 border border-base-300 shadow-sm 
+hover:shadow-xl hover:-translate-y-1 
+hover:border-primary/40 hover:scale-[1.01]
+transition-all duration-300 ease-out">
               <div className='card-body'>
                 <div className='flex items-center justify-between gap-4'>
                   {/* LEFT SIDE */}
