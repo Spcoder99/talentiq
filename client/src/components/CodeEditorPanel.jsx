@@ -1,9 +1,26 @@
-import React from 'react'
-import { LANGUAGE_CONFIG } from '../data/problems'
-import Editor from '@monaco-editor/react'
-import { Loader2Icon, PlayIcon } from 'lucide-react'
+// CodeEditorPanel.jsx
+import React, { useState } from 'react';
+import { LANGUAGE_CONFIG } from '../data/problems';
+import Editor from '@monaco-editor/react';
+import { Loader2Icon, PlayIcon } from 'lucide-react';
+import AIHintsPanel from './AIHintsPanel';
 
-function CodeEditorPanel({ selectedLanguage, code, isRunning, onLanguageChange, onCodeChange, onRunCode }) {
+function CodeEditorPanel({
+  problemId,
+  selectedLanguage,
+  code,
+  isRunning,
+  onLanguageChange,
+  onCodeChange,
+  onRunCode,
+  problemDescription,
+  constraints,
+  expectedOutput,
+  starterCode, // pass original starter code
+  userSolved,
+}) {
+  const [hint, setHint] = useState(null);
+
   return (
     <div className='h-full bg-base-300 flex flex-col'>
       <div className="flex items-center justify-between  px-4 py-3 bg-base-100 border-t border-base-300">
@@ -14,10 +31,21 @@ function CodeEditorPanel({ selectedLanguage, code, isRunning, onLanguageChange, 
               <option key={key} value={key}>
                 {lang?.name}
               </option>
-            ))
-            }
+            ))}
           </select>
         </div>
+
+        <AIHintsPanel
+          problemId={problemId}
+          problemDescription={problemDescription}
+          language={selectedLanguage}
+          constraints={constraints}
+          expectedOutput={expectedOutput}
+          setCode={onCodeChange}
+          setHint={setHint}
+          starterCode={starterCode}
+          userSolved={userSolved}
+        />
 
         <button className="btn btn-primary btn-sm gap-2" disabled={isRunning} onClick={onRunCode}>
           {isRunning ? (
@@ -34,7 +62,13 @@ function CodeEditorPanel({ selectedLanguage, code, isRunning, onLanguageChange, 
         </button>
       </div>
 
-      <div className='flex-1'>
+      <div className='flex-1 flex flex-col'>
+        {hint && (
+          <div className="bg-warning/10 text-warning text-sm p-3 border-b border-base-300 whitespace-pre-line">
+            {hint}
+          </div>
+        )}
+
         <Editor
           height={"100%"}
           language={LANGUAGE_CONFIG[selectedLanguage]?.monacoLang}
@@ -51,7 +85,7 @@ function CodeEditorPanel({ selectedLanguage, code, isRunning, onLanguageChange, 
         />
       </div>
     </div>
-  )
+  );
 }
 
-export default CodeEditorPanel
+export default CodeEditorPanel;

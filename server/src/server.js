@@ -9,6 +9,9 @@ import { inngest, functions } from "./lib/inngest.js";
 import chatRoutes from "./routes/chatRoutes.js";
 import sessionRoutes from "./routes/sessionRoutes.js";
 import executeRoutes from "./routes/executeRoutes.js";
+import router from "./routes/problemRoutes.js";
+import subRouter from "./routes/submissionRoutes.js";
+import aiRouter from "./routes/aiRoutes.js";
 
 const app = express();
 
@@ -41,6 +44,14 @@ app.use("/api/sessions", sessionRoutes)
 
 // बाकी routes के नीचे जोड़ो
 app.use("/api/execute", executeRoutes);
+
+app.use("/api/problems", router);
+
+app.use("/api/sub", subRouter);
+
+
+app.use("/api/ai", aiRouter);
+
 app.get("/health", (req, res) => {
     res.status(200).json({ msg: "api is up and running" });
 });

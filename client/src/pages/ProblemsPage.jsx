@@ -1,19 +1,53 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import { PROBLEMS } from '../data/problems.js'
 import { ChevronRightIcon, Code2Icon } from 'lucide-react';
 import { getDifficultyBadgeClass } from '../lib/utils.js';
 import { Link } from 'react-router';
 import Footer from '../components/Footer.jsx';
+import { useQuery } from "@tanstack/react-query";
+import { fetchAIRecommendedProblems, fetchProblems } from "../api/problemApi";
+// import AIRecommendedProblems from '../components/AIRecommendedProblems.jsx';
 
 const ProblemsPage = () => {
 
-  const problems = Object.values(PROBLEMS);
+  const [aiMode, setAiMode] = useState(false)
+  const [aiProblems, setAiProblems] = useState([])
+
+  const handleAIRecommendations = async () => {
+
+    const data = await fetchAIRecommendedProblems()
+
+    setAiProblems(data)
+
+    setAiMode(true)
+
+  }
+
+  const { data: apiProblems, isLoading } = useQuery({
+    queryKey: ["problems"],
+    queryFn: fetchProblems
+  });
+
+  const problems = Array.isArray(apiProblems) ? apiProblems : [];
+
+  const displayedProblems = aiMode ? aiProblems : problems
 
 
-  const easyProblemsCount = problems.filter((p) => p.difficulty === "Easy").length;
-  const mediumProblemsCount = problems.filter((p) => p.difficulty === "Medium").length;
-  const hardProblemsCount = problems.filter((p) => p.difficulty === "Hard").length;
+  if (isLoading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <span className="loading loading-spinner loading-lg"></span>
+      </div>
+    );
+  }
+
+
+
+  const easyProblemsCount = displayedProblems.filter(p => p.difficulty === "Easy").length
+  const mediumProblemsCount = displayedProblems.filter(p => p.difficulty === "Medium").length
+  const hardProblemsCount = displayedProblems.filter(p => p.difficulty === "Hard").length
+
 
   return (
     <div className='min-h-screen bg-base-200' >
@@ -28,11 +62,31 @@ const ProblemsPage = () => {
           </p>
         </div>
 
+        <div className="flex items-center gap-4 mb-6">
+
+          <button
+            onClick={handleAIRecommendations}
+            className="btn btn-primary btn-sm"
+          >
+            🤖 AI Recommended Problems
+          </button>
+
+          {aiMode && (
+            <button
+              onClick={() => setAiMode(false)}
+              className="btn btn-outline btn-sm"
+            >
+              Show All Problems
+            </button>
+          )}
+
+        </div>
+
         {/* Problem List */}
 
         <div className='space-y-4'>
-          {problems.map((problem) => (
-            <Link key={problem.id} to={`/problem/${problem.id}`} className="card bg-base-100 border border-base-300 shadow-sm 
+          {displayedProblems?.map((problem) => (
+            <Link key={problem?.id} to={`/problem/${problem?.id}`} className="card bg-base-100 border border-base-300 shadow-sm 
 hover:shadow-xl hover:-translate-y-1 
 hover:border-primary/40 hover:scale-[1.01]
 transition-all duration-300 ease-out">
@@ -46,15 +100,15 @@ transition-all duration-300 ease-out">
                       </div>
                       <div className='flex-1'>
                         <div className="flex items-center gap-2 mb-1">
-                          <h2 className="text-xl font-bold">{problem.title}</h2>
-                          <span className={`badge ${getDifficultyBadgeClass(problem.difficulty)}`}>
-                            {problem.difficulty}
+                          <h2 className="text-xl font-bold">{problem?.title}</h2>
+                          <span className={`badge ${getDifficultyBadgeClass(problem?.difficulty)}`}>
+                            {problem?.difficulty}
                           </span>
                         </div>
-                        <p className="text-sm text-base-content/60">{problem.category}</p>
+                        <p className="text-sm text-base-content/60">{problem?.category}</p>
                       </div>
                     </div>
-                    <p className="text-base-content/80 mb-3">{problem.description.text}</p>
+                    <p className="text-base-content/80 mb-3">{problem?.description?.text}</p>
                   </div>
 
                   {/* RIGHT SIDE */}
@@ -75,7 +129,7 @@ transition-all duration-300 ease-out">
             <div className='stats stats-vertical lg:stats-horizontal'>
               <div className="stat">
                 <div className="stat-title">Total Problems</div>
-                <div className='stat-value text-primary'>{problems.length}</div>
+                <div className='stat-value text-primary'>{displayedProblems?.length}</div>
               </div>
 
               <div className="stat">
