@@ -29,7 +29,7 @@ export default function AIHintsPanel({
       setLoadingHints(true);
 
       const res = await axios.get(
-        `http://localhost:3000/api/ai/hints/${problemId}/${language}`
+        `${import.meta.env.VITE_API_BASE_URL}/ai/hints/${problemId}/${language}`
       );
 
       const hintText = `
@@ -62,7 +62,7 @@ Hint 2: ${res?.data?.hints?.[1]?.hintText || ""}
       setLoadingFull(true);
 
       const res = await axios.get(
-        `http://localhost:3000/api/ai/fullcode/${problemId}/${language}`
+        `${import.meta.env.VITE_API_BASE_URL}/ai/fullcode/${problemId}/${language}`
       );
 
       setTimeout(() => {

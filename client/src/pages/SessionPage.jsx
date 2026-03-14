@@ -55,7 +55,7 @@ function SessionPage() {
 
     const fetchProblem = async () => {
       try {
-        const res = await axios.get(`http://localhost:3000/api/problems`);
+        const res = await axios.get(`${import.meta.env.VITE_API_BASE_URL}/problems`);
         const problemsArray = Array.isArray(res?.data) ? res?.data : [];
         const problemFromDB = problemsArray.find(p => p?.title === session?.problem);
 
