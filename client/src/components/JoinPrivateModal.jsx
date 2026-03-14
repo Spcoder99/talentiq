@@ -1,12 +1,13 @@
 import { useState } from "react";
 
-function JoinPrivateModal({ isOpen, onClose, onJoin }) {
+function JoinPrivateModal({ isOpen, onClose, onJoin, loading }) {
 
   const [code, setCode] = useState("");
 
   if (!isOpen) return null;
 
   const handleClose = () => {
+    if (loading) return; // prevent closing while joining
     setCode("");
     onClose();
   };
@@ -24,19 +25,32 @@ function JoinPrivateModal({ isOpen, onClose, onJoin }) {
           className="input input-bordered w-full mb-4"
           value={code}
           onChange={(e) => setCode(e.target.value)}
+          disabled={loading}
         />
 
         <div className="flex justify-end gap-3">
 
-          <button className="btn btn-ghost" onClick={handleClose}>
+          <button
+            className="btn btn-ghost"
+            onClick={handleClose}
+            disabled={loading}
+          >
             Cancel
           </button>
 
           <button
             className="btn btn-primary"
             onClick={() => onJoin(code)}
+            disabled={loading}
           >
-            Join
+            {loading ? (
+              <>
+                <span className="loading loading-spinner loading-sm"></span>
+                Joining
+              </>
+            ) : (
+              "Join"
+            )}
           </button>
 
         </div>

@@ -109,7 +109,7 @@ function ActiveSessions({ sessions, isLoading, isUserInSession }) {
                             session?.difficulty?.slice(1)}
                         </span>
 
-                       
+
                       </div>
 
                       <div className="flex items-center gap-4 text-sm opacity-80">
@@ -126,7 +126,7 @@ function ActiveSessions({ sessions, isLoading, isUserInSession }) {
                         ) : (
                           <span className="badge badge-success badge-sm">OPEN</span>
                         )}
-                         {session?.isPrivate && (
+                        {session?.isPrivate && (
                           <span className="badge badge-warning badge-sm gap-1">
                             🔒 Private
                           </span>
@@ -168,6 +168,8 @@ function ActiveSessions({ sessions, isLoading, isUserInSession }) {
         isOpen={showPrivateModal}
         onClose={() => setShowPrivateModal(false)}
         onJoin={handlePrivateJoin}
+        loading={joinSessionMutation.isPending}
+
       />
     </div>
   );
