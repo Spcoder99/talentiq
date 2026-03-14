@@ -33,16 +33,16 @@ export default function AIHintsPanel({
       );
 
       const hintText = `
-Hint 1: ${res.data.hints?.[0]?.hintText || ""}
-Hint 2: ${res.data.hints?.[1]?.hintText || ""}
+Hint 1: ${res?.data?.hints?.[0]?.hintText || ""}
+Hint 2: ${res?.data?.hints?.[1]?.hintText || ""}
 `;
 
       // fake AI delay
       setTimeout(() => {
         setHint(hintText);
 
-        if (res.data.starterCode) {
-          setCode(res.data.starterCode);
+        if (res?.data?.starterCode) {
+          setCode(res?.data?.starterCode);
         }
 
         setLoadingHints(false);
@@ -66,8 +66,8 @@ Hint 2: ${res.data.hints?.[1]?.hintText || ""}
       );
 
       setTimeout(() => {
-        if (res.data.fullCode) {
-          setCode(res.data.fullCode);
+        if (res?.data?.fullCode) {
+          setCode(res?.data?.fullCode);
         }
 
         setHint(null);

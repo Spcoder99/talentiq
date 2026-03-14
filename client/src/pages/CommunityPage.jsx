@@ -81,18 +81,18 @@ function CommunityPage() {
 
               <div className="space-y-3">
 
-                {discussions.map((d, i) => (
+                {discussions?.map((d, i) => (
 
                   <div
                     key={i}
                     className="p-4 rounded-xl border border-base-300 hover:border-primary transition flex justify-between items-center bg-base-200"
                   >
 
-                    <p className="font-medium">{d.title}</p>
+                    <p className="font-medium">{d?.title}</p>
 
                     <div className="flex items-center gap-2 text-sm opacity-70">
                       <MessageCircleIcon className="w-4 h-4" />
-                      {d.replies}
+                      {d?.replies}
                     </div>
 
                   </div>
@@ -125,7 +125,7 @@ function CommunityPage() {
 
               <div className="space-y-3">
 
-                {contributors.map((user, i) => (
+                {contributors?.map((user, i) => (
 
                   <div
                     key={i}

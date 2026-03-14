@@ -1,13 +1,12 @@
 import React, { useState } from 'react'
 import Navbar from '../components/Navbar'
 import { PROBLEMS } from '../data/problems.js'
-import { ChevronRightIcon, Code2Icon } from 'lucide-react';
+import { ChevronRightIcon, Code2Icon, Loader2Icon } from 'lucide-react';
 import { getDifficultyBadgeClass } from '../lib/utils.js';
 import { Link } from 'react-router';
 import Footer from '../components/Footer.jsx';
 import { useQuery } from "@tanstack/react-query";
 import { fetchAIRecommendedProblems, fetchProblems } from "../api/problemApi";
-// import AIRecommendedProblems from '../components/AIRecommendedProblems.jsx';
 
 const ProblemsPage = () => {
 
@@ -15,39 +14,42 @@ const ProblemsPage = () => {
   const [aiProblems, setAiProblems] = useState([])
 
   const handleAIRecommendations = async () => {
-
     const data = await fetchAIRecommendedProblems()
-
     setAiProblems(data)
-
     setAiMode(true)
-
   }
 
+  // Fetch backend problems
   const { data: apiProblems, isLoading } = useQuery({
     queryKey: ["problems"],
     queryFn: fetchProblems
   });
 
-  const problems = Array.isArray(apiProblems) ? apiProblems : [];
 
-  const displayedProblems = aiMode ? aiProblems : problems
+  // fallback to local PROBLEMS if backend fails
+  const backendProblems = Array.isArray(apiProblems) && apiProblems?.length > 0
+    ? apiProblems
+    : Object.values(PROBLEMS);
 
+  const displayedProblems = aiMode ? aiProblems : backendProblems
 
   if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <span className="loading loading-spinner loading-lg"></span>
+   return (
+      <div className="h-screen w-screen flex flex-col bg-base-100">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <Loader2Icon className="w-12 h-12 mx-auto animate-spin text-primary mb-4" />
+            <p className="text-lg text-gray-500">Loading Problems</p>
+          </div>
+        </div>
       </div>
     );
   }
 
-
-
-  const easyProblemsCount = displayedProblems.filter(p => p.difficulty === "Easy").length
-  const mediumProblemsCount = displayedProblems.filter(p => p.difficulty === "Medium").length
-  const hardProblemsCount = displayedProblems.filter(p => p.difficulty === "Hard").length
-
+  const easyProblemsCount = displayedProblems.filter(p => p?.difficulty === "Easy").length
+  const mediumProblemsCount = displayedProblems.filter(p => p?.difficulty === "Medium").length
+  const hardProblemsCount = displayedProblems.filter(p => p?.difficulty === "Hard").length
 
   return (
     <div className='min-h-screen bg-base-200' >
@@ -63,10 +65,9 @@ const ProblemsPage = () => {
         </div>
 
         <div className="flex items-center gap-4 mb-6">
-
           <button
             onClick={handleAIRecommendations}
-            className="btn btn-primary btn-sm"
+            className={`btn btn-primary btn-sm ${aiMode ? 'hidden' : ''}`}
           >
             🤖 AI Recommended Problems
           </button>
@@ -79,11 +80,9 @@ const ProblemsPage = () => {
               Show All Problems
             </button>
           )}
-
         </div>
 
         {/* Problem List */}
-
         <div className='space-y-4'>
           {displayedProblems?.map((problem) => (
             <Link key={problem?.id} to={`/problem/${problem?.id}`} className="card bg-base-100 border border-base-300 shadow-sm 
@@ -122,7 +121,6 @@ transition-all duration-300 ease-out">
           ))}
         </div>
 
-
         {/* STATS FOOTER */}
         <div className='mt-12 card bg-base-100 shadow-lg'>
           <div className="card-body">
@@ -147,8 +145,6 @@ transition-all duration-300 ease-out">
             </div>
           </div>
         </div>
-
-
       </div>
 
       <Footer />

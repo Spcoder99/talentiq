@@ -60,7 +60,7 @@ import express from "express";
 import fetch from "node-fetch"; // Node >=18 optional
 import { protectRoute } from "../middleware/protectRoute.js"; // ✅ add this
 
-const router = express.Router();
+const executeRouter = express.Router();
 
 // Judge0 CE language IDs
 const LANGUAGE_ID_MAP = {
@@ -69,7 +69,7 @@ const LANGUAGE_ID_MAP = {
   java: 62,       // Java 17
 };
 
-router.post("/", async (req, res) => { // ✅ add middleware here
+executeRouter.post("/", async (req, res) => { // ✅ add middleware here
   const { language, code, input } = req.body;
 
   if (!language || !code) {
@@ -107,4 +107,4 @@ router.post("/", async (req, res) => { // ✅ add middleware here
   }
 });
 
-export default router;
+export default executeRouter;

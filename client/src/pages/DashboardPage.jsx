@@ -28,21 +28,21 @@ function DashboardPage() {
 
 
   const handleCreateRoom = () => {
-    if (!roomConfig.problem || !roomConfig.difficulty) {
+    if (!roomConfig?.problem || !roomConfig?.difficulty) {
       toast.error("Please select a problem and difficulty");
       return;
     }
 
     createSessionMutation.mutate(
       {
-        problem: roomConfig.problem,
-        difficulty: roomConfig.difficulty.toLowerCase(),
+        problem: roomConfig?.problem,
+        difficulty: roomConfig?.difficulty.toLowerCase(),
       },
 
       {
         onSuccess: (data) => {
           setShowCreateModal(false);
-          navigate(`/session/${data.session._id}`);
+          navigate(`/session/${data?.session?._id}`);
         }
       }
     );
@@ -53,9 +53,9 @@ function DashboardPage() {
   const recentSessions = recentSessionsData?.sessions || [];
 
   const isUserInSession = (session) => {
-    if (!user.id) return false;
+    if (!user?.id) return false;
 
-    return session.host?.clerkId === user.id || session.participant?.clerkId === user.id;
+    return session?.host?.clerkId === user?.id || session?.participant?.clerkId === user?.id;
   }
 
 
@@ -68,15 +68,15 @@ function DashboardPage() {
         {/*  Grid Layout*/}
         <div className="container mx-auto px-6 pb-16">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <StatsCards activeSessionsCount={activeSessions.length} recentSessionsCount={recentSessions.length} />
+            <StatsCards activeSessionsCount={activeSessions?.length} recentSessionsCount={recentSessions?.length} />
             <ActiveSessions sessions={activeSessions} isLoading={loadingActiveSessions} isUserInSession={isUserInSession} />
           </div>
 
           <RecentSessions sessions={recentSessions} isLoading={loadingRecentSessions} />
 
           <PerformanceInsights
-            activeSessionsCount={activeSessions.length}
-            recentSessionsCount={recentSessions.length}
+            activeSessionsCount={activeSessions?.length}
+            recentSessionsCount={recentSessions?.length}
           />
 
           <QuickActions onCreateSession={() => setShowCreateModal(true)} />

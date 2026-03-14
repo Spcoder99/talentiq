@@ -10,18 +10,18 @@ function OutputPanel({ output }) {
         <p className='text-base-content/50 text-sm'>
           Click "Run Code" to see the output here. Any console logs or errors from your code will appear in this section...
         </p>
-      ) : output.success ? (
+      ) : output?.success ? (
         <pre className='text-sm font-mono text-success whitespace-pre-wrap'>
-          {output.output}
+          {output?.output}
         </pre>
       ) : (
         <div>
-          {output.output && (
+          {output?.output && (
             <pre className='text-sm font-mono text-base-content whitespace-pre-wrap mb-2'>
-              {output.output}
+              {output?.output}
             </pre>
           )}
-          <pre className='text-sm font-mono text-error whitespace-pre-wrap'>{output.error}</pre>
+          <pre className='text-sm font-mono text-error whitespace-pre-wrap'>{output?.error}</pre>
         </div>
       )}
     </div>

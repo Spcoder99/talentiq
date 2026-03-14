@@ -38,24 +38,30 @@ function SessionPage() {
   );
 
   // -----------------------------
-  // Problem data: default to dummy first
+  // Problem data
   const [problemData, setProblemData] = useState(PROBLEMS['two-sum']);
   const [selectedLanguage, setSelectedLanguage] = useState('javascript');
   const [code, setCode] = useState(PROBLEMS['two-sum'].starterCode[selectedLanguage]);
+  const [isProblemLoading, setIsProblemLoading] = useState(true);
 
   // Fetch backend problem if session.problem exists
   useEffect(() => {
-    if (!session?.problem) return;
+    if (!session?.problem) {
+      setIsProblemLoading(false);
+      return;
+    }
+
+    setIsProblemLoading(true);
 
     const fetchProblem = async () => {
       try {
         const res = await axios.get(`http://localhost:3000/api/problems`);
-        const problemsArray = Array.isArray(res?.data) ? res.data : [];
-        const problemFromDB = problemsArray.find(p => p.title === session.problem);
+        const problemsArray = Array.isArray(res?.data) ? res?.data : [];
+        const problemFromDB = problemsArray.find(p => p?.title === session?.problem);
 
         const finalProblem =
           problemFromDB ||
-          Object.values(PROBLEMS).find(p => p.title === session.problem) ||
+          Object.values(PROBLEMS).find(p => p?.title === session?.problem) ||
           PROBLEMS['two-sum'];
 
         setProblemData(finalProblem);
@@ -63,9 +69,11 @@ function SessionPage() {
       } catch (err) {
         console.error(err);
         const fallbackProblem =
-          Object.values(PROBLEMS).find(p => p.title === session.problem) || PROBLEMS['two-sum'];
+          Object.values(PROBLEMS).find(p => p?.title === session?.problem) || PROBLEMS['two-sum'];
         setProblemData(fallbackProblem);
         setCode(fallbackProblem?.starterCode?.[selectedLanguage] || '');
+      } finally {
+        setTimeout(() => setIsProblemLoading(false), 500);
       }
     };
 
@@ -75,11 +83,11 @@ function SessionPage() {
   // Update code when language changes
   useEffect(() => {
     if (problemData?.starterCode?.[selectedLanguage]) {
-      setCode(problemData.starterCode[selectedLanguage]);
+      setCode(problemData?.starterCode?.[selectedLanguage]);
     }
   }, [problemData, selectedLanguage]);
 
-  // auto-join session if not already joined
+  // Auto-join session if not already joined
   useEffect(() => {
     if (!session || !user || loadingSession) return;
     if (isHost || isParticipant) return;
@@ -87,7 +95,7 @@ function SessionPage() {
     joinSessionMutation.mutate(id, { onSuccess: refetch });
   }, [session, user, loadingSession, isHost, isParticipant, id]);
 
-  // redirect if session ends
+  // Redirect if session ends
   useEffect(() => {
     if (!session || loadingSession) return;
     if (session?.status === 'completed') navigate('/dashboard');
@@ -115,6 +123,22 @@ function SessionPage() {
     }
   };
 
+  // -----------------------------
+  // Show loading screen while session or problem is loading
+  if (loadingSession || isProblemLoading) {
+    return (
+      <div className="h-screen w-screen flex flex-col bg-base-100">
+        <Navbar />
+        <div className="flex-1 flex items-center justify-center">
+          <div className="text-center">
+            <Loader2Icon className="w-12 h-12 mx-auto animate-spin text-primary mb-4" />
+            <p className="text-lg text-gray-500">Loading session...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="h-screen bg-base-100 flex flex-col">
       <Navbar />
@@ -130,17 +154,21 @@ function SessionPage() {
                   <div className="p-6 bg-base-100 border-b border-base-300">
                     <div className="flex items-center justify-between mb-3">
                       <div>
-                        <h1 className="text-3xl font-bold text-base-content">
-                          {session?.problem || 'Loading...'}
-                        </h1>
-                        {problemData?.category && <p className="text-base-content/60 mt-1">{problemData.category}</p>}
+                        <h1 className="text-3xl font-bold text-base-content">{session?.problem}</h1>
+                        {problemData?.category && (
+                          <p className="text-base-content/60 mt-1">{problemData?.category}</p>
+                        )}
                         <p className="text-base-content/60 mt-2">
-                          Host: {session?.host?.name || 'Loading...'} • {session?.participant ? 2 : 1}/2 Participants
+                          Host: {session?.host?.name || 'Loading...'} •{' '}
+                          {session?.participant ? 2 : 1}/2 Participants
                         </p>
                       </div>
                       <div className="flex items-center gap-3">
-                        <span className={`badge badge-lg ${getDifficultyBadgeClass(session?.difficulty)}`}>
-                          {session?.difficulty?.charAt(0).toUpperCase() + session?.difficulty?.slice(1) || 'Easy'}
+                        <span
+                          className={`badge badge-lg ${getDifficultyBadgeClass(session?.difficulty)}`}
+                        >
+                          {session?.difficulty?.charAt(0).toUpperCase() +
+                            session?.difficulty?.slice(1) || 'Easy'}
                         </span>
                         {isHost && session?.status === 'active' && (
                           <button
@@ -156,33 +184,32 @@ function SessionPage() {
                             End Session
                           </button>
                         )}
-                        {session?.status === 'completed' && <span className="badge badge-ghost badge-lg">Completed</span>}
+                        {session?.status === 'completed' && (
+                          <span className="badge badge-ghost badge-lg">Completed</span>
+                        )}
                       </div>
                     </div>
                   </div>
 
+                  {/* Problem Description, Examples, Constraints */}
                   <div className="p-6 space-y-6">
-                    {/* Description */}
                     {problemData?.description && (
                       <div className="bg-base-100 rounded-xl shadow-sm p-5 border border-base-300">
                         <h2 className="text-xl font-bold mb-4 text-base-content">Description</h2>
                         <div className="space-y-3 text-base leading-relaxed">
-                          <p className="text-base-content/90">{problemData.description.text}</p>
-                          {problemData.description.notes?.map((note, idx) => (
-                            <p key={idx} className="text-base-content/90">
-                              {note}
-                            </p>
+                          <p className="text-base-content/90">{problemData?.description?.text}</p>
+                          {problemData?.description?.notes?.map((note, idx) => (
+                            <p key={idx} className="text-base-content/90">{note}</p>
                           ))}
                         </div>
                       </div>
                     )}
 
-                    {/* Examples */}
                     {problemData?.examples?.length > 0 && (
                       <div className="bg-base-100 rounded-xl shadow-sm p-5 border border-base-300">
                         <h2 className="text-xl font-bold mb-4 text-base-content">Examples</h2>
                         <div className="space-y-4">
-                          {problemData.examples.map((ex, idx) => (
+                          {problemData?.examples?.map((ex, idx) => (
                             <div key={idx}>
                               <div className="flex items-center gap-2 mb-2">
                                 <span className="badge badge-sm">{idx + 1}</span>
@@ -191,16 +218,16 @@ function SessionPage() {
                               <div className="bg-base-200 rounded-lg p-4 font-mono text-sm space-y-1.5">
                                 <div className="flex gap-2">
                                   <span className="text-primary font-bold min-w-[70px]">Input:</span>
-                                  <span>{ex.input}</span>
+                                  <span>{ex?.input}</span>
                                 </div>
                                 <div className="flex gap-2">
                                   <span className="text-secondary font-bold min-w-[70px]">Output:</span>
-                                  <span>{ex.output}</span>
+                                  <span>{ex?.output}</span>
                                 </div>
-                                {ex.explanation && (
+                                {ex?.explanation && (
                                   <div className="pt-2 border-t border-base-300 mt-2">
                                     <span className="text-base-content/60 font-sans text-xs">
-                                      <span className="font-semibold">Explanation:</span> {ex.explanation}
+                                      <span className="font-semibold">Explanation:</span> {ex?.explanation}
                                     </span>
                                   </div>
                                 )}
@@ -211,12 +238,11 @@ function SessionPage() {
                       </div>
                     )}
 
-                    {/* Constraints */}
                     {problemData?.constraints?.length > 0 && (
                       <div className="bg-base-100 rounded-xl shadow-sm p-5 border border-base-300">
                         <h2 className="text-xl font-bold mb-4 text-base-content">Constraints</h2>
                         <ul className="space-y-2 text-base-content/90">
-                          {problemData.constraints.map((c, idx) => (
+                          {problemData?.constraints?.map((c, idx) => (
                             <li key={idx} className="flex gap-2">
                               <span className="text-primary">•</span>
                               <code className="text-sm">{c}</code>

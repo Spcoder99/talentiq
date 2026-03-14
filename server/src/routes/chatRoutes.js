@@ -2,8 +2,8 @@ import express from "express";
 import { getStreamToken } from "../controllers/chatController.js";
 import { protectRoute } from "../middleware/protectRoute.js";
 
-const router = express.Router();
+const chatRouter = express.Router();
 
-router.get("/token", protectRoute,  getStreamToken);
+chatRouter.get("/token", protectRoute,  getStreamToken);
 
-export default router;
+export default chatRouter;

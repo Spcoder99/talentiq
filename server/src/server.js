@@ -1,17 +1,17 @@
-import express from "express";
-import cors from 'cors';
-import path from 'path';
-import { ENV } from "./lib/env.js";
-import { connectDB } from "./lib/db.js";
-import { serve } from 'inngest/express'
 import { clerkMiddleware } from "@clerk/express";
-import { inngest, functions } from "./lib/inngest.js";
-import chatRoutes from "./routes/chatRoutes.js";
-import sessionRoutes from "./routes/sessionRoutes.js";
-import executeRoutes from "./routes/executeRoutes.js";
-import router from "./routes/problemRoutes.js";
-import subRouter from "./routes/submissionRoutes.js";
+import cors from 'cors';
+import express from "express";
+import { serve } from 'inngest/express';
+import path from 'path';
+import { connectDB } from "./lib/db.js";
+import { ENV } from "./lib/env.js";
+import { functions, inngest } from "./lib/inngest.js";
 import aiRouter from "./routes/aiRoutes.js";
+import chatRouter from "./routes/chatRoutes.js";
+import executeRouter from "./routes/executeRoutes.js";
+import router from "./routes/problemRoutes.js";
+import sessionRouter from "./routes/sessionRoutes.js";
+import subRouter from "./routes/submissionRoutes.js";
 
 const app = express();
 
@@ -39,11 +39,11 @@ app.use(clerkMiddleware()); // this adds auth field to the request object: req.a
 
 app.use("/api/inngest", serve({ client: inngest, functions }))
 
-app.use("/api/chat", chatRoutes);
-app.use("/api/sessions", sessionRoutes)
+app.use("/api/chat", chatRouter);
+app.use("/api/sessions", sessionRouter)
 
 // बाकी routes के नीचे जोड़ो
-app.use("/api/execute", executeRoutes);
+app.use("/api/execute", executeRouter);
 
 app.use("/api/problems", router);
 

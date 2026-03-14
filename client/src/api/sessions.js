@@ -33,7 +33,7 @@ export const sessionApi = {
     },
 
     getStreamToken: async () => {
-        const response = await axiosInstance.get("/chat/token");
+        const response = await axiosInstance.get("/chat/token", { timeout: 10000 }); // 10 seconds timeout
         return response.data;
     }
 
