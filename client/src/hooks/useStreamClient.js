@@ -10,20 +10,39 @@ function useStreamClient(session, loadingSession, isHost, isParticipant) {
   const [chatClient, setChatClient] = useState(null);
   const [channel, setChannel] = useState(null);
   const [isInitializingCall, setIsInitializingCall] = useState(true);
-  const hasLeftCallRef = useRef(false);
+
+  const isInitializedRef = useRef(false);
 
   useEffect(() => {
     let videoCall = null;
     let chatClientInstance = null;
 
     const initCall = async () => {
+
       if (!session?.callId) return;
-      if (!isHost && !isParticipant) return;
-      if (session.status === "completed") return;
+
+      // user must be part of session
+      if (!isHost && !isParticipant) {
+        setIsInitializingCall(false);
+        return;
+      }
+
+      // session ended
+      if (session.status === "completed") {
+        setIsInitializingCall(false);
+        return;
+      }
+
+      // prevent double initialization
+      if (isInitializedRef.current) return;
+      isInitializedRef.current = true;
 
       try {
-        const { token, userId, userName, userImage } = await sessionApi.getStreamToken();
 
+        const { token, userId, userName, userImage } =
+          await sessionApi.getStreamToken();
+
+        // initialize video client
         const client = await initializeStreamClient(
           {
             id: userId,
@@ -35,11 +54,9 @@ function useStreamClient(session, loadingSession, isHost, isParticipant) {
 
         setStreamClient(client);
 
-        videoCall = client.call("default", session.callId);
-        await videoCall.join({ create: true });
-        setCall(videoCall);
-
+        // ---------------- CHAT CLIENT ----------------
         const apiKey = import.meta.env.VITE_STREAM_API_KEY;
+
         chatClientInstance = StreamChat.getInstance(apiKey);
 
         await chatClientInstance.connectUser(
@@ -50,47 +67,71 @@ function useStreamClient(session, loadingSession, isHost, isParticipant) {
           },
           token
         );
+
         setChatClient(chatClientInstance);
 
-        const chatChannel = chatClientInstance.channel("messaging", session.callId);
+        // ---------------- VIDEO CALL ----------------
+        videoCall = client.call("default", session.callId);
+
+        await videoCall.join();
+
+        setCall(videoCall);
+
+        // ---------------- CHAT CHANNEL ----------------
+        const chatChannel = chatClientInstance.channel(
+          "messaging",
+          session.callId
+        );
+
         await chatChannel.watch();
+
         setChannel(chatChannel);
+
       } catch (error) {
+
         toast.error("Failed to join video call");
+
         console.error("Error init call", error);
+
       } finally {
+
         setIsInitializingCall(false);
+
       }
     };
 
-    if (session && !loadingSession) initCall();
+    if (session && !loadingSession) {
+      initCall();
+    }
 
-    // cleanup - performance reasons
+    // ---------------- CLEANUP ----------------
     return () => {
       (async () => {
         try {
-          // Use call state variable for cleanup
-          if (call && typeof call.leave === "function") {
-            // Try/catch to handle already left call
+
+          if (videoCall) {
             try {
-              await call.leave();
+              await videoCall.leave();
             } catch (err) {
               if (!/already been left/.test(err.message)) {
                 console.error("Cleanup error:", err);
               }
             }
           }
-          if (chatClient && typeof chatClient.disconnectUser === "function") {
-            await chatClient.disconnectUser();
+
+          if (chatClientInstance) {
+            await chatClientInstance.disconnectUser();
           }
+
           await disconnectStreamClient();
+
         } catch (error) {
           console.error("Cleanup error:", error);
         }
       })();
     };
+
   }, [session, loadingSession, isHost, isParticipant]);
-  // ...existing code...
 
   return {
     streamClient,

@@ -25,7 +25,9 @@ function CreateSessionModal({ isOpen, onClose, roomConfig, setRoomConfig, onCrea
                             value={roomConfig?.problem}
                             onChange={(e) => {
                                 const selectedProblem = problems?.find((p) => p?.title === e.target.value);
+
                                 setRoomConfig({
+                                    ...roomConfig,
                                     difficulty: selectedProblem?.difficulty,
                                     problem: e.target.value,
                                 });
@@ -41,6 +43,26 @@ function CreateSessionModal({ isOpen, onClose, roomConfig, setRoomConfig, onCrea
                                 </option>
                             ))}
                         </select>
+
+                        {/* PRIVATE SESSION TOGGLE */}
+
+                        <div className="form-control mt-3">
+                            <label className="label cursor-pointer">
+                                <span className="label-text font-medium">Private Session</span>
+
+                                <input
+                                    type="checkbox"
+                                    className="toggle toggle-primary"
+                                    checked={roomConfig?.isPrivate || false}
+                                    onChange={(e) =>
+                                        setRoomConfig({
+                                            ...roomConfig,
+                                            isPrivate: e.target.checked
+                                        })
+                                    }
+                                />
+                            </label>
+                        </div>
                     </div>
 
                     {/* ROOM SUMMARY */}

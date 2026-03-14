@@ -10,9 +10,54 @@ import {
 } from "lucide-react";
 import { Link } from "react-router";
 import { getDifficultyBadgeClass } from "../lib/utils";
+import JoinPrivateModal from "./JoinPrivateModal";
+import { useNavigate } from "react-router";
+import { useJoinSession } from "../hooks/useSessions";
+import { useState } from "react";
 
 function ActiveSessions({ sessions, isLoading, isUserInSession }) {
-  
+
+
+  const navigate = useNavigate();
+
+  const [showPrivateModal, setShowPrivateModal] = useState(false);
+  const [selectedSession, setSelectedSession] = useState(null);
+
+  const joinSessionMutation = useJoinSession();
+
+
+  const handleJoin = (session) => {
+
+    if (session?.isPrivate && !isUserInSession(session)) {
+
+      setSelectedSession(session);
+      setShowPrivateModal(true);
+
+    } else {
+
+      navigate(`/session/${session._id}`);
+
+    }
+
+  };
+
+  const handlePrivateJoin = (code) => {
+
+    joinSessionMutation.mutate(
+      {
+        id: selectedSession._id,
+        inviteCode: code
+      },
+      {
+        onSuccess: () => {
+          setShowPrivateModal(false);   // ADD THIS
+          navigate(`/session/${selectedSession._id}`);
+        }
+      }
+    );
+
+  };
+
   return (
     <div className="lg:col-span-2 card bg-base-100 border-2 border-primary/20 hover:border-primary/30 h-full">
       <div className="card-body">
@@ -63,6 +108,8 @@ function ActiveSessions({ sessions, isLoading, isUserInSession }) {
                           {session?.difficulty?.slice(0, 1)?.toUpperCase() +
                             session?.difficulty?.slice(1)}
                         </span>
+
+                       
                       </div>
 
                       <div className="flex items-center gap-4 text-sm opacity-80">
@@ -79,6 +126,11 @@ function ActiveSessions({ sessions, isLoading, isUserInSession }) {
                         ) : (
                           <span className="badge badge-success badge-sm">OPEN</span>
                         )}
+                         {session?.isPrivate && (
+                          <span className="badge badge-warning badge-sm gap-1">
+                            🔒 Private
+                          </span>
+                        )}
                       </div>
                     </div>
                   </div>
@@ -86,10 +138,17 @@ function ActiveSessions({ sessions, isLoading, isUserInSession }) {
                   {session?.participant && !isUserInSession(session) ? (
                     <button className="btn btn-disabled btn-sm">Full</button>
                   ) : (
-                    <Link to={`/session/${session?._id}`} className="btn btn-primary btn-sm gap-2">
+                    // <Link to={`/session/${session?._id}`} className="btn btn-primary btn-sm gap-2">
+                    //   {isUserInSession(session) ? "Rejoin" : "Join"}
+                    //   <ArrowRightIcon className="size-4" />
+                    // </Link>
+                    <button
+                      onClick={() => handleJoin(session)}
+                      className="btn btn-primary btn-sm gap-2"
+                    >
                       {isUserInSession(session) ? "Rejoin" : "Join"}
                       <ArrowRightIcon className="size-4" />
-                    </Link>
+                    </button>
                   )}
                 </div>
               </div>
@@ -105,6 +164,11 @@ function ActiveSessions({ sessions, isLoading, isUserInSession }) {
           )}
         </div>
       </div>
+      <JoinPrivateModal
+        isOpen={showPrivateModal}
+        onClose={() => setShowPrivateModal(false)}
+        onJoin={handlePrivateJoin}
+      />
     </div>
   );
 }

@@ -20,7 +20,12 @@ function DashboardPage() {
   const { user } = useUser();
 
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [roomConfig, setRoomConfig] = useState({ problem: "", difficulty: "" });
+  // const [roomConfig, setRoomConfig] = useState({ problem: "", difficulty: "" });
+  const [roomConfig, setRoomConfig] = useState({
+    problem: "",
+    difficulty: "",
+    isPrivate: false
+  });
 
   const createSessionMutation = useCreateSession();
   const { data: activeSessionsData, isLoading: loadingActiveSessions } = useActiveSessions();
@@ -33,12 +38,18 @@ function DashboardPage() {
       return;
     }
 
+    // createSessionMutation.mutate(
+    //   {
+    //     problem: roomConfig?.problem,
+    //     difficulty: roomConfig?.difficulty.toLowerCase(),
+    //   },
+
     createSessionMutation.mutate(
       {
         problem: roomConfig?.problem,
         difficulty: roomConfig?.difficulty.toLowerCase(),
+        isPrivate: roomConfig?.isPrivate
       },
-
       {
         onSuccess: (data) => {
           setShowCreateModal(false);
@@ -80,7 +91,7 @@ function DashboardPage() {
           />
 
           <QuickActions onCreateSession={() => setShowCreateModal(true)} />
-            <ProductivityTips />
+          <ProductivityTips />
         </div>
         <Footer />
       </div>

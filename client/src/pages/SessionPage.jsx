@@ -20,6 +20,7 @@ function SessionPage() {
   const { id } = useParams();
   const { user } = useUser();
   const [output, setOutput] = useState(null);
+  const [inviteCodeInput, setInviteCodeInput] = useState("");
   const [isRunning, setIsRunning] = useState(false);
 
   const { data: sessionData, isLoading: loadingSession, refetch } = useSessionById(id);
@@ -87,13 +88,36 @@ function SessionPage() {
     }
   }, [problemData, selectedLanguage]);
 
-  // Auto-join session if not already joined
+  // // Auto-join session if not already joined
+  // useEffect(() => {
+  //   if (!session || !user || loadingSession) return;
+  //   if (isHost || isParticipant) return;
+
+  //   joinSessionMutation.mutate(id, { onSuccess: refetch });
+  // }, [session, user, loadingSession, isHost, isParticipant, id]);
+
   useEffect(() => {
-    if (!session || !user || loadingSession) return;
+
+    if (!session?._id) return;
+    if (!user?.id) return;
+
     if (isHost || isParticipant) return;
 
-    joinSessionMutation.mutate(id, { onSuccess: refetch });
-  }, [session, user, loadingSession, isHost, isParticipant, id]);
+    // auto join only PUBLIC sessions
+    if (!session.isPrivate) {
+
+      joinSessionMutation.mutate(
+        { id: session._id, inviteCode: null },
+        {
+          onSuccess: () => {
+            refetch();
+          }
+        }
+      );
+
+    }
+
+  }, [session?._id, user?.id]);
 
   // Redirect if session ends
   useEffect(() => {
@@ -123,6 +147,20 @@ function SessionPage() {
     }
   };
 
+
+  const handleJoinPrivateSession = () => {
+
+    joinSessionMutation.mutate(
+      { id: session._id, inviteCode: inviteCodeInput },
+      {
+        onSuccess: () => {
+          refetch();
+        }
+      }
+    );
+
+  };
+
   // -----------------------------
   // Show loading screen while session or problem is loading
   if (loadingSession || isProblemLoading) {
@@ -133,6 +171,47 @@ function SessionPage() {
           <div className="text-center">
             <Loader2Icon className="w-12 h-12 mx-auto animate-spin text-primary mb-4" />
             <p className="text-lg text-gray-500">Loading session...</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (session?.isPrivate && !isHost && !isParticipant) {
+    return (
+      <div className="h-screen flex flex-col">
+        <Navbar />
+
+        <div className="flex-1 flex items-center justify-center">
+          <div className="card bg-base-100 shadow-xl p-6 w-96">
+
+            <h2 className="text-xl font-bold mb-4 text-center">
+              Enter Invite Code
+            </h2>
+
+            <input
+              type="text"
+              placeholder="Invite Code"
+              value={inviteCodeInput}
+              onChange={(e) => setInviteCodeInput(e.target.value)}
+              className="input input-bordered w-full mb-4"
+            />
+
+            <button
+              className="btn btn-primary w-full"
+              onClick={handleJoinPrivateSession}
+              disabled={joinSessionMutation.isPending}
+            >
+              {joinSessionMutation.isPending ? (
+                <>
+                  <span className="loading loading-spinner loading-sm"></span>
+                  Joining...
+                </>
+              ) : (
+                "Join Session"
+              )}
+            </button>
+
           </div>
         </div>
       </div>
@@ -162,7 +241,9 @@ function SessionPage() {
                           Host: {session?.host?.name || 'Loading...'} •{' '}
                           {session?.participant ? 2 : 1}/2 Participants
                         </p>
+
                       </div>
+
                       <div className="flex items-center gap-3">
                         <span
                           className={`badge badge-lg ${getDifficultyBadgeClass(session?.difficulty)}`}
@@ -189,6 +270,50 @@ function SessionPage() {
                         )}
                       </div>
                     </div>
+
+                    {isHost && session?.isPrivate && (
+                      <div className="bg-base-200 border border-base-300 rounded-md mt-3 px-3 py-5 text-sm space-y-1">
+
+                        {/* Line 1 - Link */}
+                        <div className="flex items-center gap-2 flex-wrap mb-4">
+                          <span className="opacity-70">Link:</span>
+
+                          <span className="break-all">
+                            {window.location.origin}/session/{session?._id}
+                          </span>
+
+                          <button
+                            className="btn btn-info btn-xs"
+                            onClick={() =>
+                              navigator.clipboard.writeText(
+                                `${window.location.origin}/session/${session?._id}`
+                              )
+                            }
+                          >
+                            Copy
+                          </button>
+                        </div>
+
+                        {/* Line 2 - Code */}
+                        <div className="flex items-center gap-2">
+                          <span className="opacity-70">Code:</span>
+
+                          <span className="font-mono font-semibold">
+                            {session?.inviteCode}
+                          </span>
+
+                          <button
+                            className="btn btn-info btn-xs"
+                            onClick={() =>
+                              navigator.clipboard.writeText(session?.inviteCode)
+                            }
+                          >
+                            Copy
+                          </button>
+                        </div>
+
+                      </div>
+                    )}
                   </div>
 
                   {/* Problem Description, Examples, Constraints */}
@@ -289,6 +414,8 @@ function SessionPage() {
 
           <PanelResizeHandle className="w-2 bg-base-300 hover:bg-primary transition-col-resize" />
 
+
+
           {/* RIGHT PANEL _ VIDEO CALLS & CHAT */}
           <Panel defaultSize={50} minSize={30}>
             <div className="h-full bg-base-200 p-4 overflow-auto">
@@ -299,7 +426,7 @@ function SessionPage() {
                     <p className="text-lg">Connecting to video call...</p>
                   </div>
                 </div>
-              ) : !streamClient || !call ? (
+              ) : !isInitializingCall && (!streamClient || !call) ? (
                 <div className="h-full flex items-center justify-center">
                   <div className="card bg-base-100 shadow-xl max-w-md">
                     <div className="card-body items-center text-center">
