@@ -63,7 +63,8 @@ export const useSessionById = (sessionId) => {
         enabled: !!sessionId,
 
         // auto refresh session state
-        refetchInterval: 5000,
+        refetchInterval: 4000,
+        
     });
 
     return result;
@@ -84,11 +85,11 @@ export const useJoinSession = () => {
 
             if (!id) throw new Error("Session id missing");
 
-const res = await axios.post(
-  `${import.meta.env.VITE_API_BASE_URL}/sessions/${id}/join`,
-  { inviteCode },
-  { withCredentials: true }
-);
+            const res = await axios.post(
+                `${import.meta.env.VITE_API_BASE_URL}/sessions/${id}/join`,
+                { inviteCode },
+                { withCredentials: true }
+            );
             return res.data;
         },
 
@@ -96,9 +97,6 @@ const res = await axios.post(
 
             toast.success("Joined session successfully");
 
-            // // refresh dashboard + session data
-            // queryClient.invalidateQueries(["activeSessions"]);
-            // queryClient.invalidateQueries(["session"]);
 
 
             queryClient.invalidateQueries({ queryKey: ["activeSessions"] });

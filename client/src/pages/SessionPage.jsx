@@ -88,13 +88,7 @@ function SessionPage() {
     }
   }, [problemData, selectedLanguage]);
 
-  // // Auto-join session if not already joined
-  // useEffect(() => {
-  //   if (!session || !user || loadingSession) return;
-  //   if (isHost || isParticipant) return;
 
-  //   joinSessionMutation.mutate(id, { onSuccess: refetch });
-  // }, [session, user, loadingSession, isHost, isParticipant, id]);
 
   useEffect(() => {
 
@@ -426,7 +420,7 @@ function SessionPage() {
                     <p className="text-lg">Connecting to video call...</p>
                   </div>
                 </div>
-              ) : !isInitializingCall && (!streamClient || !call) ? (
+              ) : !streamClient || !call ? (
                 <div className="h-full flex items-center justify-center">
                   <div className="card bg-base-100 shadow-xl max-w-md">
                     <div className="card-body items-center text-center">
