@@ -63,7 +63,7 @@ export const useSessionById = (sessionId) => {
         enabled: !!sessionId,
 
         // auto refresh session state
-        refetchInterval: 4000,
+        refetchInterval: 3000,
         
     });
 
