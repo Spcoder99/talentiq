@@ -20,7 +20,7 @@ function DashboardPage() {
   const { user } = useUser();
 
   const [showCreateModal, setShowCreateModal] = useState(false);
-  // const [roomConfig, setRoomConfig] = useState({ problem: "", difficulty: "" });
+
   const [roomConfig, setRoomConfig] = useState({
     problem: "",
     difficulty: "",

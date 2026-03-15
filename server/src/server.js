@@ -11,7 +11,6 @@ import chatRouter from "./routes/chatRoutes.js";
 import executeRouter from "./routes/executeRoutes.js";
 import router from "./routes/problemRoutes.js";
 import sessionRouter from "./routes/sessionRoutes.js";
-import subRouter from "./routes/submissionRoutes.js";
 
 const app = express();
 
@@ -46,8 +45,6 @@ app.use("/api/sessions", sessionRouter)
 app.use("/api/execute", executeRouter);
 
 app.use("/api/problems", router);
-
-app.use("/api/sub", subRouter);
 
 
 app.use("/api/ai", aiRouter);
