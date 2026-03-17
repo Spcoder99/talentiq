@@ -152,7 +152,6 @@ function SessionPage() {
         }
       }
     );
-
   };
 
   // -----------------------------
@@ -212,6 +211,7 @@ function SessionPage() {
     );
   }
 
+  
   return (
     <div className="h-screen bg-base-100 flex flex-col">
       <Navbar />

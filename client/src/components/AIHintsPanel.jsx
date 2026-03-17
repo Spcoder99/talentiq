@@ -46,7 +46,7 @@ Hint 2: ${res?.data?.hints?.[1]?.hintText || ""}
         }
 
         setLoadingHints(false);
-      }, 7500);
+      }, 6000);
 
     } catch (err) {
       console.error("Hints fetch error:", err);
@@ -72,7 +72,7 @@ Hint 2: ${res?.data?.hints?.[1]?.hintText || ""}
 
         setHint(null);
         setLoadingFull(false);
-      }, 4000);
+      }, 10000);
 
     } catch (err) {
       console.error("Full code fetch error:", err);
