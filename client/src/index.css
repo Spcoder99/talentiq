@@ -17,3 +17,29 @@
     cursor: pointer;
   }
 }
+
+@keyframes errorPulse {
+  0% {
+    opacity: 0;
+    transform: scaleX(0);
+  }
+  40% {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scaleX(1);
+  }
+}
+
+.error-pulse-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  width: 100%;
+  background: linear-gradient(90deg,#ef4444,#f87171,#ef4444);
+  animation: errorPulse 0.6s ease;
+  z-index: 9999;
+}

@@ -17,9 +17,9 @@ const problemSchema = new mongoose.Schema({
   category: String,
 
   importanceScore: {
-  type: Number,
-  default: 0
-},
+    type: Number,
+    default: 0
+  },
 
   description: {
     text: String,
@@ -36,7 +36,7 @@ const problemSchema = new mongoose.Schema({
 
   constraints: [String],
 
-  
+
 
   starterCode: {
     javascript: String,

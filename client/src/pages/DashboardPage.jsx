@@ -1,24 +1,24 @@
-import React, { useState } from 'react'
-import { useNavigate } from 'react-router';
 import { useUser } from '@clerk/clerk-react';
-import { useActiveSessions, useCreateSession, useMyRecentSessions } from '../hooks/useSessions';
-import Navbar from '../components/Navbar';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import WelcomeSection from '../components/WelcomeSection';
-import StatsCards from '../components/StatsCards';
+import { useNavigate } from 'react-router';
 import ActiveSessions from '../components/ActiveSessions';
-import RecentSessions from '../components/RecentSessions';
 import CreateSessionModal from '../components/CreateSessionModal';
 import Footer from '../components/Footer';
+import Navbar from '../components/Navbar';
 import PerformanceInsights from '../components/PerformanceInsights';
-import QuickActions from '../components/QuickActions';
 import ProductivityTips from '../components/ProductivityTips';
+import QuickActions from '../components/QuickActions';
+import RecentSessions from '../components/RecentSessions';
+import StatsCards from '../components/StatsCards';
+import WelcomeSection from '../components/WelcomeSection';
+import { useActiveSessions, useCreateSession, useMyRecentSessions } from '../hooks/useSessions';
+
 
 function DashboardPage() {
 
   const navigate = useNavigate();
   const { user } = useUser();
-
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   const [roomConfig, setRoomConfig] = useState({
@@ -30,7 +30,6 @@ function DashboardPage() {
   const createSessionMutation = useCreateSession();
   const { data: activeSessionsData, isLoading: loadingActiveSessions } = useActiveSessions();
   const { data: recentSessionsData, isLoading: loadingRecentSessions } = useMyRecentSessions();
-
 
   const handleCreateRoom = () => {
     if (!roomConfig?.problem || !roomConfig?.difficulty) {

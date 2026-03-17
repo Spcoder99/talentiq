@@ -64,7 +64,7 @@ export const useSessionById = (sessionId) => {
 
         // auto refresh session state
         refetchInterval: 3000,
-        
+
     });
 
     return result;

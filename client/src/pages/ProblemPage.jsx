@@ -16,16 +16,16 @@ import { Loader2Icon } from 'lucide-react';
 function ProblemPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-// Default problem state (like SessionPage)
-const defaultProblem = PROBLEMS['two-sum'];
+  // Default problem state (like SessionPage)
+  const defaultProblem = PROBLEMS['two-sum'];
 
-const [currentProblem, setCurrentProblem] = useState(defaultProblem);
-const [currentProblemId, setCurrentProblemId] = useState(id || 'two-sum');
-const [selectedLanguage, setSelectedLanguage] = useState('javascript');
-const [code, setCode] = useState(defaultProblem.starterCode[selectedLanguage]);
-const [output, setOutput] = useState(null);
-const [isRunning, setIsRunning] = useState(false);
-const [isLoading, setIsLoading] = useState(true);
+  const [currentProblem, setCurrentProblem] = useState(defaultProblem);
+  const [currentProblemId, setCurrentProblemId] = useState(id || 'two-sum');
+  const [selectedLanguage, setSelectedLanguage] = useState('javascript');
+  const [code, setCode] = useState(defaultProblem.starterCode[selectedLanguage]);
+  const [output, setOutput] = useState(null);
+  const [isRunning, setIsRunning] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   // -----------------------------
   // Fetch problem from backend primarily
   useEffect(() => {
@@ -82,9 +82,78 @@ const [isLoading, setIsLoading] = useState(true);
     navigate(`/problem/${newProblemId}`);
   };
 
+  // const triggerConfetti = () => {
+  //   confetti({ particleCount: 80, spread: 250, origin: { x: 0.2, y: 0.6 } });
+  //   confetti({ particleCount: 80, spread: 250, origin: { x: 0.8, y: 0.6 } });
+  // };
+
   const triggerConfetti = () => {
-    confetti({ particleCount: 80, spread: 250, origin: { x: 0.2, y: 0.6 } });
-    confetti({ particleCount: 80, spread: 250, origin: { x: 0.8, y: 0.6 } });
+    const duration = 2000;
+    const animationEnd = Date.now() + duration;
+
+    const defaults = {
+      startVelocity: 45,
+      spread: 360,
+      ticks: 80,
+      gravity: 0.9,
+      zIndex: 1000
+    };
+
+    // 🎉 Side cannons (left + right)
+    confetti({
+      particleCount: 80,
+      angle: 60,
+      spread: 70,
+      origin: { x: 0, y: 0.7 }
+    });
+
+    confetti({
+      particleCount: 80,
+      angle: 120,
+      spread: 70,
+      origin: { x: 1, y: 0.7 }
+    });
+
+    // 🎆 Center burst
+    confetti({
+      particleCount: 120,
+      spread: 100,
+      origin: { y: 0.6 }
+    });
+
+    // ✨ Floating particles animation
+    const interval = setInterval(() => {
+      const timeLeft = animationEnd - Date.now();
+
+      if (timeLeft <= 0) {
+        clearInterval(interval);
+        return;
+      }
+
+      const particleCount = 60 * (timeLeft / duration);
+
+      confetti({
+        ...defaults,
+        particleCount,
+        origin: {
+          x: Math.random(),
+          y: Math.random() * 0.4
+        },
+        scalar: Math.random() * 0.6 + 0.6
+      });
+
+    }, 200);
+  };
+
+  const triggerFailEffect = () => {
+    const bar = document.createElement("div");
+    bar.className = "error-pulse-bar";
+
+    document.body.appendChild(bar);
+
+    setTimeout(() => {
+      bar.remove();
+    }, 600);
   };
 
   const normalizeOutput = (output) => {
@@ -99,6 +168,7 @@ const [isLoading, setIsLoading] = useState(true);
           .replace(/\[\s+/g, "[")
           .replace(/\s+\]/g, "]")
           .replace(/\s*,\s*/g, ",")
+          .replace(/-0/g, "0")   // ⭐ ADD THIS LINE
       )
       .filter(line => line.length > 0)
       .join("\n");
@@ -131,6 +201,7 @@ const [isLoading, setIsLoading] = useState(true);
           triggerConfetti();
           toast.success("All tests passed! Great job!");
         } else {
+          triggerFailEffect();
           toast.error("Tests failed. Keep trying & Check your output!");
         }
       } else {
@@ -191,20 +262,20 @@ const [isLoading, setIsLoading] = useState(true);
 
               <Panel defaultSize={63} minSize={30}>
                 {!isLoading && currentProblem && (
-                <CodeEditorPanel
-                  problemId={currentProblemId}
-                  selectedLanguage={selectedLanguage}
-                  code={code}
-                  isRunning={isRunning}
-                  onLanguageChange={handleLanguageChange}
-                  onCodeChange={setCode}
-                  onRunCode={handleRunCode}
-                  problemDescription={currentProblem?.description?.text}
-                  constraints={currentProblem?.constraints?.join(", ")}
-                  expectedOutput={currentProblem?.expectedOutput?.[selectedLanguage]}
-                  starterCode={currentProblem?.starterCode?.[selectedLanguage]}
-                  userSolved={10}
-                /> )}
+                  <CodeEditorPanel
+                    problemId={currentProblemId}
+                    selectedLanguage={selectedLanguage}
+                    code={code}
+                    isRunning={isRunning}
+                    onLanguageChange={handleLanguageChange}
+                    onCodeChange={setCode}
+                    onRunCode={handleRunCode}
+                    problemDescription={currentProblem?.description?.text}
+                    constraints={currentProblem?.constraints?.join(", ")}
+                    expectedOutput={currentProblem?.expectedOutput?.[selectedLanguage]}
+                    starterCode={currentProblem?.starterCode?.[selectedLanguage]}
+                    userSolved={10}
+                  />)}
               </Panel>
 
               <PanelResizeHandle className='h-2 bg-base-300 hover:bg-primary transition-colors cursor-row-resize' />

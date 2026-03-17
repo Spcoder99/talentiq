@@ -49,9 +49,10 @@ app.use("/api/problems", router);
 
 app.use("/api/ai", aiRouter);
 
-app.get("/health", (req, res) => {
+app.get("/", (req, res) => {
     res.status(200).json({ msg: "api is up and running" });
 });
+
 
 
 

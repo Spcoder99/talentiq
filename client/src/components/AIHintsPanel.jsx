@@ -72,7 +72,7 @@ Hint 2: ${res?.data?.hints?.[1]?.hintText || ""}
 
         setHint(null);
         setLoadingFull(false);
-      }, 14000);
+      }, 4000);
 
     } catch (err) {
       console.error("Full code fetch error:", err);
