@@ -14,6 +14,7 @@ import OutputPanel from '../components/OutputPanel';
 import useStreamClient from '../hooks/useStreamClient';
 import { StreamCall, StreamVideo } from '@stream-io/video-react-sdk';
 import VideoCallUI from '../components/VideoCallUI.jsx';
+import { useQueryClient } from "@tanstack/react-query";
 
 function SessionPage() {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ function SessionPage() {
   const [output, setOutput] = useState(null);
   const [inviteCodeInput, setInviteCodeInput] = useState("");
   const [isRunning, setIsRunning] = useState(false);
+  const queryClient = useQueryClient();
+  const [showConfirm, setShowConfirm] = useState(false);
 
   const { data: sessionData, isLoading: loadingSession, refetch } = useSessionById(id);
   const joinSessionMutation = useJoinSession();
@@ -88,7 +91,7 @@ function SessionPage() {
     }
   }, [problemData, selectedLanguage]);
 
- 
+
 
   useEffect(() => {
 
@@ -136,13 +139,84 @@ function SessionPage() {
     setOutput(result);
     setIsRunning(false);
   };
-  
+
 
   const handleEndSession = () => {
-    if (confirm('Are you sure you want to end the session? All participants will be notified.')) {
-      endSessionMutation.mutate(id, { onSuccess: () => navigate('/dashboard') });
-    }
+    // if (confirm('Are you sure you want to end the session? All participants will be notified.')) {
+    //   endSessionMutation.mutate(id, {
+
+
+    //     onSuccess: () => {
+    //       queryClient.setQueryData(["activeSessions"], (old) => {
+    //         if (!old) return old;
+
+    //         return {
+    //           ...old,
+    //           sessions: old.sessions.filter((s) => s._id !== id)
+    //         };
+    //       });
+
+    //       queryClient.setQueryData(["myRecentSessions"], (old) => {
+    //         if (!old) return old;
+
+    //         return {
+    //           ...old,
+    //           sessions: [
+    //             {
+    //               _id: id,
+    //               status: "completed",
+    //               createdAt: new Date().toISOString(), // ✅ FIX
+    //             },
+    //             ...old.sessions
+    //           ]
+    //         };
+    //       });
+
+    //       navigate("/dashboard");
+    //     }
+
+    //   });
+    // }
+    setShowConfirm(true);
   };
+
+
+  const confirmEndSession = () => {
+    endSessionMutation.mutate(id, {
+
+
+      onSuccess: () => {
+        queryClient.setQueryData(["activeSessions"], (old) => {
+          if (!old) return old;
+
+          return {
+            ...old,
+            sessions: old.sessions.filter((s) => s._id !== id)
+          };
+        });
+
+        queryClient.setQueryData(["myRecentSessions"], (old) => {
+          if (!old) return old;
+
+          return {
+            ...old,
+            sessions: [
+              {
+                _id: id,
+                status: "completed",
+                createdAt: new Date().toISOString(), // ✅ FIX
+              },
+              ...old.sessions
+            ]
+          };
+        });
+
+        navigate("/dashboard");
+      }
+
+    });
+  }
+
 
 
   const handleJoinPrivateSession = () => {
@@ -448,6 +522,40 @@ function SessionPage() {
           </Panel>
         </PanelGroup>
       </div>
+
+      {showConfirm && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-base-100 rounded-2xl shadow-xl p-6 w-96">
+
+            <h2 className="text-xl font-bold mb-2">End Session</h2>
+            <p className="text-base-content/70 mb-6">
+              Are you sure you want to end the session?
+            </p>
+
+            <div className="flex justify-end gap-3">
+              <button
+                className="btn btn-ghost"
+                onClick={() => setShowConfirm(false)}
+              >
+                Cancel
+              </button>
+
+              <button
+                className="btn btn-error"
+                onClick={confirmEndSession}
+                disabled={endSessionMutation.isPending}
+              >
+                {endSessionMutation.isPending ? (
+                  <span className="loading loading-spinner loading-sm"></span>
+                ) : (
+                  "End Session"
+                )}
+              </button>
+            </div>
+
+          </div>
+        </div>
+      )}
     </div>
   );
 }

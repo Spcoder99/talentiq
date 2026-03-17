@@ -56,18 +56,37 @@ function DashboardPage() {
   const activeSessions = activeSessionsData?.sessions || [];
   const recentSessions = recentSessionsData?.sessions || [];
 
+  const loading = loadingActiveSessions || loadingRecentSessions;
+
 
   console.log("Active sessions:", activeSessions);
   console.log("Recent sessions:", recentSessions);
 
   console.log("Active sessions data:", activeSessionsData);
   console.log("Recent sessions data:", recentSessionsData);
-  
+
 
   const isUserInSession = (session) => {
     if (!user?.id) return false;
 
     return session?.host?.clerkId === user?.id || session?.participant?.clerkId === user?.id;
+
+  }
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-base-100">
+        <div className="flex flex-col items-center gap-4">
+
+          <div className="w-20 h-20 rounded-full bg-gradient-to-r from-primary via-secondary to-accent animate-pulse"></div>
+
+          <p className="text-base-content/70 animate-pulse">
+            Loading dashboard...
+          </p>
+
+        </div>
+      </div>
+    )
   }
 
 
