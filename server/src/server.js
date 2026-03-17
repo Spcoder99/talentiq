@@ -49,13 +49,9 @@ app.use("/api/problems", router);
 
 app.use("/api/ai", aiRouter);
 
-app.get("/", (req, res) => {
-    res.status(200).json({ msg: "api is up and running" });
+app.get("/health", (req, res) => {
+    res.json({ status: "ok" });
 });
-
-
-
-
 
 // make our app ready for deployment
 if (ENV.NODE_ENV === "production") {
