@@ -37,12 +37,6 @@ function DashboardPage() {
       return;
     }
 
-    // createSessionMutation.mutate(
-    //   {
-    //     problem: roomConfig?.problem,
-    //     difficulty: roomConfig?.difficulty.toLowerCase(),
-    //   },
-
     createSessionMutation.mutate(
       {
         problem: roomConfig?.problem,
@@ -61,6 +55,14 @@ function DashboardPage() {
 
   const activeSessions = activeSessionsData?.sessions || [];
   const recentSessions = recentSessionsData?.sessions || [];
+
+
+  console.log("Active sessions:", activeSessions);
+  console.log("Recent sessions:", recentSessions);
+
+  console.log("Active sessions data:", activeSessionsData);
+  console.log("Recent sessions data:", recentSessionsData);
+  
 
   const isUserInSession = (session) => {
     if (!user?.id) return false;

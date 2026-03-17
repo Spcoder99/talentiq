@@ -119,6 +119,7 @@ function SessionPage() {
     if (session?.status === 'completed') navigate('/dashboard');
   }, [session, loadingSession, navigate]);
 
+
   const handleLanguageChange = e => {
     const newLanguage = e.target.value;
     setSelectedLanguage(newLanguage);
@@ -127,6 +128,7 @@ function SessionPage() {
     setOutput(null);
   };
 
+
   const handleRunCode = async () => {
     setIsRunning(true);
     setOutput(null);
@@ -134,6 +136,7 @@ function SessionPage() {
     setOutput(result);
     setIsRunning(false);
   };
+  
 
   const handleEndSession = () => {
     if (confirm('Are you sure you want to end the session? All participants will be notified.')) {
@@ -211,7 +214,7 @@ function SessionPage() {
     );
   }
 
-  
+
   return (
     <div className="h-screen bg-base-100 flex flex-col">
       <Navbar />
