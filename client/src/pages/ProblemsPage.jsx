@@ -25,7 +25,7 @@ const ProblemsPage = () => {
         setAiProblems(data);
         setAiMode(true);
         setAiLoading(false);
-      }, 1700);
+      }, 500);
 
     } catch (err) {
       setAiLoading(false);
