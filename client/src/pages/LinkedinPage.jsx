@@ -23,7 +23,7 @@ export default function LinkedinPage() {
         </p>
 
         <a
-          href="https://linkedin.com/in/yourusername"
+           href="https://www.linkedin.com/in/shubhantakpandey99"
           target="_blank"
           rel="noopener noreferrer"
           className="inline-block mt-6 px-6 py-3 bg-blue-600 text-black font-semibold rounded-lg shadow-lg hover:bg-blue-700 transition"
