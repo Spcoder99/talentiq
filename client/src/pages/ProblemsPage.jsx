@@ -10,14 +10,21 @@ import { fetchAIRecommendedProblems, fetchProblems } from "../api/problemApi";
 
 const ProblemsPage = () => {
 
-  const [aiMode, setAiMode] = useState(false)
-  const [aiProblems, setAiProblems] = useState([])
+  const [aiMode, setAiMode] = useState(false);
+  const [aiProblems, setAiProblems] = useState([]);
+  const [aiLoading, setAiLoading] = useState(false);
+
 
   const handleAIRecommendations = async () => {
-    const data = await fetchAIRecommendedProblems()
-    setAiProblems(data)
-    setAiMode(true)
-  }
+    setAiLoading(true);
+    try {
+      const data = await fetchAIRecommendedProblems();
+      setAiProblems(data);
+      setAiMode(true);
+    } finally {
+      setAiLoading(false);
+    }
+  };
 
   // Fetch backend problems
   const { data: apiProblems, isLoading } = useQuery({
@@ -68,8 +75,10 @@ const ProblemsPage = () => {
           <button
             onClick={handleAIRecommendations}
             className={`btn btn-primary btn-sm ${aiMode ? 'hidden' : ''}`}
+              disabled={aiLoading}
+
           >
-            🤖 AI Recommended Problems
+            {aiLoading ? "Loading..." : "🤖 AI Recommended Problems"}
           </button>
 
           {aiMode && (
