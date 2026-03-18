@@ -445,7 +445,18 @@ const HomePage = () => {
 
               <div className="flex justify-center gap-4 mt-8">
 
-                <SignInButton mode="modal">
+                <SignInButton mode="modal"  appearance={{
+              variables: {
+                colorPrimary: "#22c55e",
+                colorBackground: "#020617",
+                colorInputBackground: "#1e293b",
+                colorText: "#f8fafc",
+                colorTextSecondary: "#94a3b8",
+                colorNeutral: "#f8fafc",
+                colorInputText: "#f8fafc",
+                borderRadius: "12px",
+              },
+            }}>
                   <button className="btn btn-primary btn-lg">
                     Start Free Interview
                     <ArrowRightIcon className="size-5" />
