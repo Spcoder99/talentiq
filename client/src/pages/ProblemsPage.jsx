@@ -17,11 +17,17 @@ const ProblemsPage = () => {
 
   const handleAIRecommendations = async () => {
     setAiLoading(true);
+
     try {
       const data = await fetchAIRecommendedProblems();
-      setAiProblems(data);
-      setAiMode(true);
-    } finally {
+
+      setTimeout(() => {
+        setAiProblems(data);
+        setAiMode(true);
+        setAiLoading(false);
+      }, 1700);
+
+    } catch (err) {
       setAiLoading(false);
     }
   };
@@ -75,7 +81,7 @@ const ProblemsPage = () => {
           <button
             onClick={handleAIRecommendations}
             className={`btn btn-primary btn-sm ${aiMode ? 'hidden' : ''}`}
-              disabled={aiLoading}
+            disabled={aiLoading}
 
           >
             {aiLoading ? "Loading..." : "🤖 AI Recommended Problems"}
