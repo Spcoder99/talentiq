@@ -58,15 +58,15 @@ const Footer = () => {
               </li>
 
               <li>
-                <a className="hover:text-primary transition cursor-pointer">
+                <Link to="/live-interviews" className="hover:text-primary transition cursor-pointer">
                   Live Interviews
-                </a>
+                </Link>
               </li>
 
               <li>
-                <a className="hover:text-primary transition cursor-pointer">
+                <Link to="/collaboration-tools" className="hover:text-primary transition cursor-pointer">
                   Collaboration Tools
-                </a>
+                </Link>
               </li>
 
             </ul>
@@ -80,27 +80,27 @@ const Footer = () => {
             <ul className="space-y-2 text-base-content/70 text-sm">
 
               <li>
-                <a className="hover:text-primary transition cursor-pointer">
+                <Link to="/documentation" className="hover:text-primary transition cursor-pointer">
                   Documentation
-                </a>
+                </Link>
               </li>
 
               <li>
-                <a className="hover:text-primary transition cursor-pointer">
+                <Link to="/api" className="hover:text-primary transition cursor-pointer">
                   API Reference
-                </a>
+                </Link>
               </li>
 
               <li>
-                <a className="hover:text-primary transition cursor-pointer">
+                <Link to="/blog" className="hover:text-primary transition cursor-pointer">
                   Developer Blog
-                </a>
+                </Link>
               </li>
 
               <li>
-                <a className="hover:text-primary transition cursor-pointer">
+                <Link to="/community" className="hover:text-primary transition cursor-pointer">
                   Community
-                </a>
+                </Link>
               </li>
 
             </ul>
@@ -113,17 +113,17 @@ const Footer = () => {
 
             <div className="flex items-center gap-3">
 
-              <a className="p-2 rounded-lg bg-base-200 hover:bg-primary hover:text-white transition">
+              <Link to="/github" className="p-2 rounded-lg bg-base-200 hover:bg-primary hover:text-white transition">
                 <GithubIcon className="size-5"/>
-              </a>
+              </Link>
 
-              <a className="p-2 rounded-lg bg-base-200 hover:bg-primary hover:text-white transition">
+              <Link to="/twitter" className="p-2 rounded-lg bg-base-200 hover:bg-primary hover:text-white transition">
                 <TwitterIcon className="size-5"/>
-              </a>
+              </Link>
 
-              <a className="p-2 rounded-lg bg-base-200 hover:bg-primary hover:text-white transition">
+              <Link to="/linkedin" className="p-2 rounded-lg bg-base-200 hover:bg-primary hover:text-white transition">
                 <LinkedinIcon className="size-5"/>
-              </a>
+              </Link>
 
             </div>
 
