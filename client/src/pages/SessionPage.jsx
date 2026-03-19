@@ -226,9 +226,7 @@ function SessionPage() {
         queryClient.invalidateQueries(["activeSessions"]);
         queryClient.invalidateQueries(["myRecentSessions"]);
 
-        // navigate("/dashboard");
-
-          setTimeout(() => navigate("/dashboard"), 380);
+        navigate("/dashboard");
 
         
       }
