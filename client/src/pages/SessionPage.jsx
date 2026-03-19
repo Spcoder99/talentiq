@@ -226,7 +226,11 @@ function SessionPage() {
         queryClient.invalidateQueries(["activeSessions"]);
         queryClient.invalidateQueries(["myRecentSessions"]);
 
-        navigate("/dashboard");
+        // navigate("/dashboard");
+
+          setTimeout(() => navigate("/dashboard"), 380);
+
+        
       }
     });
   };
