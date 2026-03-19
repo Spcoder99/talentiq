@@ -145,7 +145,7 @@ const HomePage = () => {
           </div>
 
           {/* RIGHT IMAGE */}
-          <img src="/hero4.png" alt="CodeCollab Platform" className="w-[94%] h-auto rounded-3xl shadow-2xl border-4 border-base-100 hover:scale-105 transition-transform duration-500" />
+          <img src="/hero4.webp" alt="CodeCollab Platform" className="w-[94%] h-auto rounded-3xl shadow-2xl border-4 border-base-100 hover:scale-105 transition-transform duration-500" />
 
         </div>
       </div>
