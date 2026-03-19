@@ -181,41 +181,56 @@ function SessionPage() {
   };
 
 
+  // const confirmEndSession = () => {
+  //   endSessionMutation.mutate(id, {
+
+
+  //     onSuccess: () => {
+  //       queryClient.setQueryData(["activeSessions"], (old) => {
+  //         if (!old) return old;
+
+  //         return {
+  //           ...old,
+  //           sessions: old.sessions.filter((s) => s._id !== id)
+  //         };
+  //       });
+
+  //       queryClient.setQueryData(["myRecentSessions"], (old) => {
+  //         if (!old) return old;
+
+  //         return {
+  //           ...old,
+  //           sessions: [
+  //             {
+  //               _id: id,
+  //               status: "completed",
+  //               createdAt: new Date().toISOString(), // ✅ FIX
+  //             },
+  //             ...old.sessions
+  //           ]
+  //         };
+  //       });
+
+  //       navigate("/dashboard");
+  //     }
+
+  //   });
+  // }
+
+  
+
   const confirmEndSession = () => {
     endSessionMutation.mutate(id, {
-
-
       onSuccess: () => {
-        queryClient.setQueryData(["activeSessions"], (old) => {
-          if (!old) return old;
 
-          return {
-            ...old,
-            sessions: old.sessions.filter((s) => s._id !== id)
-          };
-        });
-
-        queryClient.setQueryData(["myRecentSessions"], (old) => {
-          if (!old) return old;
-
-          return {
-            ...old,
-            sessions: [
-              {
-                _id: id,
-                status: "completed",
-                createdAt: new Date().toISOString(), // ✅ FIX
-              },
-              ...old.sessions
-            ]
-          };
-        });
+        queryClient.invalidateQueries(["activeSessions"]);
+        queryClient.invalidateQueries(["myRecentSessions"]);
 
         navigate("/dashboard");
       }
-
     });
-  }
+  };
+  
 
 
 
@@ -230,6 +245,9 @@ function SessionPage() {
       }
     );
   };
+
+
+  
 
   // -----------------------------
   // Show loading screen while session or problem is loading
