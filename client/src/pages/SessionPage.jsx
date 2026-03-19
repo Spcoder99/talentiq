@@ -142,80 +142,11 @@ function SessionPage() {
 
 
   const handleEndSession = () => {
-    // if (confirm('Are you sure you want to end the session? All participants will be notified.')) {
-    //   endSessionMutation.mutate(id, {
-
-
-    //     onSuccess: () => {
-    //       queryClient.setQueryData(["activeSessions"], (old) => {
-    //         if (!old) return old;
-
-    //         return {
-    //           ...old,
-    //           sessions: old.sessions.filter((s) => s._id !== id)
-    //         };
-    //       });
-
-    //       queryClient.setQueryData(["myRecentSessions"], (old) => {
-    //         if (!old) return old;
-
-    //         return {
-    //           ...old,
-    //           sessions: [
-    //             {
-    //               _id: id,
-    //               status: "completed",
-    //               createdAt: new Date().toISOString(), // ✅ FIX
-    //             },
-    //             ...old.sessions
-    //           ]
-    //         };
-    //       });
-
-    //       navigate("/dashboard");
-    //     }
-
-    //   });
-    // }
     setShowConfirm(true);
   };
 
 
-  // const confirmEndSession = () => {
-  //   endSessionMutation.mutate(id, {
-
-
-  //     onSuccess: () => {
-  //       queryClient.setQueryData(["activeSessions"], (old) => {
-  //         if (!old) return old;
-
-  //         return {
-  //           ...old,
-  //           sessions: old.sessions.filter((s) => s._id !== id)
-  //         };
-  //       });
-
-  //       queryClient.setQueryData(["myRecentSessions"], (old) => {
-  //         if (!old) return old;
-
-  //         return {
-  //           ...old,
-  //           sessions: [
-  //             {
-  //               _id: id,
-  //               status: "completed",
-  //               createdAt: new Date().toISOString(), // ✅ FIX
-  //             },
-  //             ...old.sessions
-  //           ]
-  //         };
-  //       });
-
-  //       navigate("/dashboard");
-  //     }
-
-  //   });
-  // }
+ 
 
   
 
@@ -223,11 +154,7 @@ function SessionPage() {
     endSessionMutation.mutate(id, {
       onSuccess: () => {
 
-        queryClient.invalidateQueries(["activeSessions"]);
-        queryClient.invalidateQueries(["myRecentSessions"]);
-
         navigate("/dashboard");
-
         
       }
     });
