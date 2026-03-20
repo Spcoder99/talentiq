@@ -503,12 +503,9 @@ const HomePage = () => {
 
               <div className="w-full aspect-video bg-black">
 
-                <iframe
-                  className="w-full h-full"
-                  src="https://www.youtube.com/embed/dQw4w9WgXcQ"
-                  title="Skill IQ Demo"
-                  allowFullScreen
-                />
+                 <video className="w-full h-full" controls>
+                  <source src="/demo.mp4" type="video/mp4" />
+                </video>
 
               </div>
 
